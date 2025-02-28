@@ -1,0 +1,1897 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\CefSharp.Common.116.0.150\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.116.0.150\build\CefSharp.Common.props')" />
+  <Import Project="packages\cef.redist.x86.116.0.15\build\cef.redist.x86.props" Condition="Exists('packages\cef.redist.x86.116.0.15\build\cef.redist.x86.props')" />
+  <Import Project="packages\cef.redist.x64.116.0.15\build\cef.redist.x64.props" Condition="Exists('packages\cef.redist.x64.116.0.15\build\cef.redist.x64.props')" />
+  <Import Project="packages\Costura.Fody.5.3.0\build\Costura.Fody.props" Condition="Exists('packages\Costura.Fody.5.3.0\build\Costura.Fody.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EF089005-E8BE-418F-B3CA-9555ACE50085}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>EChartsTest</RootNamespace>
+    <AssemblyName>EChartsTest</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AduSkin, Version=1.1.1.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\AduSkin.1.1.1.9\lib\net45\AduSkin.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp, Version=116.0.150.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>packages\CefSharp.Common.116.0.150\lib\net462\CefSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CefSharp.Core, Version=116.0.150.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>packages\CefSharp.Common.116.0.150\lib\net462\CefSharp.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CefSharp.Wpf, Version=116.0.150.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>packages\CefSharp.Wpf.116.0.150\lib\net462\CefSharp.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Costura, Version=5.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Costura.Fody.5.3.0\lib\netstandard1.0\Costura.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>packages\ExcelDataReader.3.6.0\lib\net45\ExcelDataReader.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader.DataSet, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>packages\ExcelDataReader.DataSet.3.6.0\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MiniExcel, Version=1.31.2.0, Culture=neutral, PublicKeyToken=e7310002a53eac39, processorArchitecture=MSIL">
+      <HintPath>packages\MiniExcel.1.31.2\lib\net45\MiniExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.AppContext.4.3.0\lib\net463\System.AppContext.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tracing, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Diagnostics.Tracing.4.3.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq.Expressions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Linq.Expressions.4.3.0\lib\net463\System.Linq.Expressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.RegularExpressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.RegularExpressions.4.3.0\lib\net463\System.Text.RegularExpressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="ExcelConverter.cs" />
+    <Compile Include="INIHelper.cs" />
+    <Compile Include="MainWindowHelpers.cs" />
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SetProjectNameWindow.xaml.cs">
+      <DependentUpon>SetProjectNameWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SetProjectNameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="bin\ARM64\Debug\bin\Debug\outcsv\c.csv" />
+    <None Include="bin\ARM64\Debug\bin\Debug\outcsv\d.csv" />
+    <None Include="bin\ARM64\Debug\bin\Debug\outcsv\s.csv" />
+    <None Include="bin\ARM64\Debug\bin\Debug\outcsv\u.csv" />
+    <None Include="bin\ARM64\Debug\bin\Debug\outcsv\v.csv" />
+    <None Include="bin\ARM64\Debug\bin\Debug\outcsv\z.csv" />
+    <None Include="bin\ARM64\Debug\chrome_100_percent.pak" />
+    <None Include="bin\ARM64\Debug\chrome_200_percent.pak" />
+    <None Include="bin\ARM64\Debug\D.csv" />
+    <None Include="bin\ARM64\Debug\EChartsTest.exe.config" />
+    <None Include="bin\ARM64\Debug\icudtl.dat" />
+    <None Include="bin\ARM64\Debug\locales\af.pak" />
+    <None Include="bin\ARM64\Debug\locales\am.pak" />
+    <None Include="bin\ARM64\Debug\locales\ar.pak" />
+    <None Include="bin\ARM64\Debug\locales\bg.pak" />
+    <None Include="bin\ARM64\Debug\locales\bn.pak" />
+    <None Include="bin\ARM64\Debug\locales\ca.pak" />
+    <None Include="bin\ARM64\Debug\locales\cs.pak" />
+    <None Include="bin\ARM64\Debug\locales\da.pak" />
+    <None Include="bin\ARM64\Debug\locales\de.pak" />
+    <None Include="bin\ARM64\Debug\locales\el.pak" />
+    <None Include="bin\ARM64\Debug\locales\en-GB.pak" />
+    <None Include="bin\ARM64\Debug\locales\en-US.pak" />
+    <None Include="bin\ARM64\Debug\locales\es-419.pak" />
+    <None Include="bin\ARM64\Debug\locales\es.pak" />
+    <None Include="bin\ARM64\Debug\locales\et.pak" />
+    <None Include="bin\ARM64\Debug\locales\fa.pak" />
+    <None Include="bin\ARM64\Debug\locales\fi.pak" />
+    <None Include="bin\ARM64\Debug\locales\fil.pak" />
+    <None Include="bin\ARM64\Debug\locales\fr.pak" />
+    <None Include="bin\ARM64\Debug\locales\gu.pak" />
+    <None Include="bin\ARM64\Debug\locales\he.pak" />
+    <None Include="bin\ARM64\Debug\locales\hi.pak" />
+    <None Include="bin\ARM64\Debug\locales\hr.pak" />
+    <None Include="bin\ARM64\Debug\locales\hu.pak" />
+    <None Include="bin\ARM64\Debug\locales\id.pak" />
+    <None Include="bin\ARM64\Debug\locales\it.pak" />
+    <None Include="bin\ARM64\Debug\locales\ja.pak" />
+    <None Include="bin\ARM64\Debug\locales\kn.pak" />
+    <None Include="bin\ARM64\Debug\locales\ko.pak" />
+    <None Include="bin\ARM64\Debug\locales\lt.pak" />
+    <None Include="bin\ARM64\Debug\locales\lv.pak" />
+    <None Include="bin\ARM64\Debug\locales\ml.pak" />
+    <None Include="bin\ARM64\Debug\locales\mr.pak" />
+    <None Include="bin\ARM64\Debug\locales\ms.pak" />
+    <None Include="bin\ARM64\Debug\locales\nb.pak" />
+    <None Include="bin\ARM64\Debug\locales\nl.pak" />
+    <None Include="bin\ARM64\Debug\locales\pl.pak" />
+    <None Include="bin\ARM64\Debug\locales\pt-BR.pak" />
+    <None Include="bin\ARM64\Debug\locales\pt-PT.pak" />
+    <None Include="bin\ARM64\Debug\locales\ro.pak" />
+    <None Include="bin\ARM64\Debug\locales\ru.pak" />
+    <None Include="bin\ARM64\Debug\locales\sk.pak" />
+    <None Include="bin\ARM64\Debug\locales\sl.pak" />
+    <None Include="bin\ARM64\Debug\locales\sr.pak" />
+    <None Include="bin\ARM64\Debug\locales\sv.pak" />
+    <None Include="bin\ARM64\Debug\locales\sw.pak" />
+    <None Include="bin\ARM64\Debug\locales\ta.pak" />
+    <None Include="bin\ARM64\Debug\locales\te.pak" />
+    <None Include="bin\ARM64\Debug\locales\th.pak" />
+    <None Include="bin\ARM64\Debug\locales\tr.pak" />
+    <None Include="bin\ARM64\Debug\locales\uk.pak" />
+    <None Include="bin\ARM64\Debug\locales\ur.pak" />
+    <None Include="bin\ARM64\Debug\locales\vi.pak" />
+    <None Include="bin\ARM64\Debug\locales\zh-CN.pak" />
+    <None Include="bin\ARM64\Debug\locales\zh-TW.pak" />
+    <None Include="bin\ARM64\Debug\resources.pak" />
+    <None Include="bin\ARM64\Debug\snapshot_blob.bin" />
+    <None Include="bin\ARM64\Debug\v8_context_snapshot.bin" />
+    <None Include="bin\ARM64\Debug\vk_swiftshader_icd.json" />
+    <None Include="bin\ARM64\Debug\wwwroot\D.csv" />
+    <None Include="bin\Debug\1.out" />
+    <None Include="bin\Debug\config.ini" />
+    <None Include="bin\Debug\D.csv" />
+    <None Include="bin\Debug\DawnCache\data_0" />
+    <None Include="bin\Debug\DawnCache\data_1" />
+    <None Include="bin\Debug\DawnCache\data_2" />
+    <None Include="bin\Debug\DawnCache\data_3" />
+    <None Include="bin\Debug\DawnCache\index" />
+    <None Include="bin\Debug\debug.log" />
+    <None Include="bin\Debug\d_matrix.csv" />
+    <None Include="bin\Debug\EChartsTest.exe.config" />
+    <None Include="bin\Debug\GPUCache\data_0" />
+    <None Include="bin\Debug\GPUCache\data_1" />
+    <None Include="bin\Debug\GPUCache\data_2" />
+    <None Include="bin\Debug\GPUCache\data_3" />
+    <None Include="bin\Debug\GPUCache\index" />
+    <None Include="bin\Debug\libuntitled.lib" />
+    <None Include="bin\Debug\outcsv\d.csv" />
+    <None Include="bin\Debug\wwwroot\D.csv" />
+    <None Include="bin\Debug\x64\chrome_100_percent.pak" />
+    <None Include="bin\Debug\x64\chrome_200_percent.pak" />
+    <None Include="bin\Debug\x64\icudtl.dat" />
+    <None Include="bin\Debug\x64\locales\af.pak" />
+    <None Include="bin\Debug\x64\locales\am.pak" />
+    <None Include="bin\Debug\x64\locales\ar.pak" />
+    <None Include="bin\Debug\x64\locales\bg.pak" />
+    <None Include="bin\Debug\x64\locales\bn.pak" />
+    <None Include="bin\Debug\x64\locales\ca.pak" />
+    <None Include="bin\Debug\x64\locales\cs.pak" />
+    <None Include="bin\Debug\x64\locales\da.pak" />
+    <None Include="bin\Debug\x64\locales\de.pak" />
+    <None Include="bin\Debug\x64\locales\el.pak" />
+    <None Include="bin\Debug\x64\locales\en-GB.pak" />
+    <None Include="bin\Debug\x64\locales\en-US.pak" />
+    <None Include="bin\Debug\x64\locales\es-419.pak" />
+    <None Include="bin\Debug\x64\locales\es.pak" />
+    <None Include="bin\Debug\x64\locales\et.pak" />
+    <None Include="bin\Debug\x64\locales\fa.pak" />
+    <None Include="bin\Debug\x64\locales\fi.pak" />
+    <None Include="bin\Debug\x64\locales\fil.pak" />
+    <None Include="bin\Debug\x64\locales\fr.pak" />
+    <None Include="bin\Debug\x64\locales\gu.pak" />
+    <None Include="bin\Debug\x64\locales\he.pak" />
+    <None Include="bin\Debug\x64\locales\hi.pak" />
+    <None Include="bin\Debug\x64\locales\hr.pak" />
+    <None Include="bin\Debug\x64\locales\hu.pak" />
+    <None Include="bin\Debug\x64\locales\id.pak" />
+    <None Include="bin\Debug\x64\locales\it.pak" />
+    <None Include="bin\Debug\x64\locales\ja.pak" />
+    <None Include="bin\Debug\x64\locales\kn.pak" />
+    <None Include="bin\Debug\x64\locales\ko.pak" />
+    <None Include="bin\Debug\x64\locales\lt.pak" />
+    <None Include="bin\Debug\x64\locales\lv.pak" />
+    <None Include="bin\Debug\x64\locales\ml.pak" />
+    <None Include="bin\Debug\x64\locales\mr.pak" />
+    <None Include="bin\Debug\x64\locales\ms.pak" />
+    <None Include="bin\Debug\x64\locales\nb.pak" />
+    <None Include="bin\Debug\x64\locales\nl.pak" />
+    <None Include="bin\Debug\x64\locales\pl.pak" />
+    <None Include="bin\Debug\x64\locales\pt-BR.pak" />
+    <None Include="bin\Debug\x64\locales\pt-PT.pak" />
+    <None Include="bin\Debug\x64\locales\ro.pak" />
+    <None Include="bin\Debug\x64\locales\ru.pak" />
+    <None Include="bin\Debug\x64\locales\sk.pak" />
+    <None Include="bin\Debug\x64\locales\sl.pak" />
+    <None Include="bin\Debug\x64\locales\sr.pak" />
+    <None Include="bin\Debug\x64\locales\sv.pak" />
+    <None Include="bin\Debug\x64\locales\sw.pak" />
+    <None Include="bin\Debug\x64\locales\ta.pak" />
+    <None Include="bin\Debug\x64\locales\te.pak" />
+    <None Include="bin\Debug\x64\locales\th.pak" />
+    <None Include="bin\Debug\x64\locales\tr.pak" />
+    <None Include="bin\Debug\x64\locales\uk.pak" />
+    <None Include="bin\Debug\x64\locales\ur.pak" />
+    <None Include="bin\Debug\x64\locales\vi.pak" />
+    <None Include="bin\Debug\x64\locales\zh-CN.pak" />
+    <None Include="bin\Debug\x64\locales\zh-TW.pak" />
+    <None Include="bin\Debug\x64\resources.pak" />
+    <None Include="bin\Debug\x64\snapshot_blob.bin" />
+    <None Include="bin\Debug\x64\v8_context_snapshot.bin" />
+    <None Include="bin\Debug\x64\vk_swiftshader_icd.json" />
+    <None Include="bin\Debug\x86\chrome_100_percent.pak" />
+    <None Include="bin\Debug\x86\chrome_200_percent.pak" />
+    <None Include="bin\Debug\x86\icudtl.dat" />
+    <None Include="bin\Debug\x86\locales\af.pak" />
+    <None Include="bin\Debug\x86\locales\am.pak" />
+    <None Include="bin\Debug\x86\locales\ar.pak" />
+    <None Include="bin\Debug\x86\locales\bg.pak" />
+    <None Include="bin\Debug\x86\locales\bn.pak" />
+    <None Include="bin\Debug\x86\locales\ca.pak" />
+    <None Include="bin\Debug\x86\locales\cs.pak" />
+    <None Include="bin\Debug\x86\locales\da.pak" />
+    <None Include="bin\Debug\x86\locales\de.pak" />
+    <None Include="bin\Debug\x86\locales\el.pak" />
+    <None Include="bin\Debug\x86\locales\en-GB.pak" />
+    <None Include="bin\Debug\x86\locales\en-US.pak" />
+    <None Include="bin\Debug\x86\locales\es-419.pak" />
+    <None Include="bin\Debug\x86\locales\es.pak" />
+    <None Include="bin\Debug\x86\locales\et.pak" />
+    <None Include="bin\Debug\x86\locales\fa.pak" />
+    <None Include="bin\Debug\x86\locales\fi.pak" />
+    <None Include="bin\Debug\x86\locales\fil.pak" />
+    <None Include="bin\Debug\x86\locales\fr.pak" />
+    <None Include="bin\Debug\x86\locales\gu.pak" />
+    <None Include="bin\Debug\x86\locales\he.pak" />
+    <None Include="bin\Debug\x86\locales\hi.pak" />
+    <None Include="bin\Debug\x86\locales\hr.pak" />
+    <None Include="bin\Debug\x86\locales\hu.pak" />
+    <None Include="bin\Debug\x86\locales\id.pak" />
+    <None Include="bin\Debug\x86\locales\it.pak" />
+    <None Include="bin\Debug\x86\locales\ja.pak" />
+    <None Include="bin\Debug\x86\locales\kn.pak" />
+    <None Include="bin\Debug\x86\locales\ko.pak" />
+    <None Include="bin\Debug\x86\locales\lt.pak" />
+    <None Include="bin\Debug\x86\locales\lv.pak" />
+    <None Include="bin\Debug\x86\locales\ml.pak" />
+    <None Include="bin\Debug\x86\locales\mr.pak" />
+    <None Include="bin\Debug\x86\locales\ms.pak" />
+    <None Include="bin\Debug\x86\locales\nb.pak" />
+    <None Include="bin\Debug\x86\locales\nl.pak" />
+    <None Include="bin\Debug\x86\locales\pl.pak" />
+    <None Include="bin\Debug\x86\locales\pt-BR.pak" />
+    <None Include="bin\Debug\x86\locales\pt-PT.pak" />
+    <None Include="bin\Debug\x86\locales\ro.pak" />
+    <None Include="bin\Debug\x86\locales\ru.pak" />
+    <None Include="bin\Debug\x86\locales\sk.pak" />
+    <None Include="bin\Debug\x86\locales\sl.pak" />
+    <None Include="bin\Debug\x86\locales\sr.pak" />
+    <None Include="bin\Debug\x86\locales\sv.pak" />
+    <None Include="bin\Debug\x86\locales\sw.pak" />
+    <None Include="bin\Debug\x86\locales\ta.pak" />
+    <None Include="bin\Debug\x86\locales\te.pak" />
+    <None Include="bin\Debug\x86\locales\th.pak" />
+    <None Include="bin\Debug\x86\locales\tr.pak" />
+    <None Include="bin\Debug\x86\locales\uk.pak" />
+    <None Include="bin\Debug\x86\locales\ur.pak" />
+    <None Include="bin\Debug\x86\locales\vi.pak" />
+    <None Include="bin\Debug\x86\locales\zh-CN.pak" />
+    <None Include="bin\Debug\x86\locales\zh-TW.pak" />
+    <None Include="bin\Debug\x86\resources.pak" />
+    <None Include="bin\Debug\x86\snapshot_blob.bin" />
+    <None Include="bin\Debug\x86\v8_context_snapshot.bin" />
+    <None Include="bin\Debug\x86\vk_swiftshader_icd.json" />
+    <None Include="bin\x64\Debug\bin\Debug\outcsv\c.csv" />
+    <None Include="bin\x64\Debug\bin\Debug\outcsv\d.csv" />
+    <None Include="bin\x64\Debug\bin\Debug\outcsv\s.csv" />
+    <None Include="bin\x64\Debug\bin\Debug\outcsv\u.csv" />
+    <None Include="bin\x64\Debug\bin\Debug\outcsv\v.csv" />
+    <None Include="bin\x64\Debug\bin\Debug\outcsv\z.csv" />
+    <None Include="bin\x64\Debug\chrome_100_percent.pak" />
+    <None Include="bin\x64\Debug\chrome_200_percent.pak" />
+    <None Include="bin\x64\Debug\D.csv" />
+    <None Include="bin\x64\Debug\DawnCache\data_0" />
+    <None Include="bin\x64\Debug\DawnCache\data_1" />
+    <None Include="bin\x64\Debug\DawnCache\data_2" />
+    <None Include="bin\x64\Debug\DawnCache\data_3" />
+    <None Include="bin\x64\Debug\DawnCache\index" />
+    <None Include="bin\x64\Debug\debug.log" />
+    <None Include="bin\x64\Debug\EChartsTest.exe.config" />
+    <None Include="bin\x64\Debug\GPUCache\data_0" />
+    <None Include="bin\x64\Debug\GPUCache\data_1" />
+    <None Include="bin\x64\Debug\GPUCache\data_2" />
+    <None Include="bin\x64\Debug\GPUCache\data_3" />
+    <None Include="bin\x64\Debug\GPUCache\index" />
+    <None Include="bin\x64\Debug\icudtl.dat" />
+    <None Include="bin\x64\Debug\locales\af.pak" />
+    <None Include="bin\x64\Debug\locales\am.pak" />
+    <None Include="bin\x64\Debug\locales\ar.pak" />
+    <None Include="bin\x64\Debug\locales\bg.pak" />
+    <None Include="bin\x64\Debug\locales\bn.pak" />
+    <None Include="bin\x64\Debug\locales\ca.pak" />
+    <None Include="bin\x64\Debug\locales\cs.pak" />
+    <None Include="bin\x64\Debug\locales\da.pak" />
+    <None Include="bin\x64\Debug\locales\de.pak" />
+    <None Include="bin\x64\Debug\locales\el.pak" />
+    <None Include="bin\x64\Debug\locales\en-GB.pak" />
+    <None Include="bin\x64\Debug\locales\en-US.pak" />
+    <None Include="bin\x64\Debug\locales\es-419.pak" />
+    <None Include="bin\x64\Debug\locales\es.pak" />
+    <None Include="bin\x64\Debug\locales\et.pak" />
+    <None Include="bin\x64\Debug\locales\fa.pak" />
+    <None Include="bin\x64\Debug\locales\fi.pak" />
+    <None Include="bin\x64\Debug\locales\fil.pak" />
+    <None Include="bin\x64\Debug\locales\fr.pak" />
+    <None Include="bin\x64\Debug\locales\gu.pak" />
+    <None Include="bin\x64\Debug\locales\he.pak" />
+    <None Include="bin\x64\Debug\locales\hi.pak" />
+    <None Include="bin\x64\Debug\locales\hr.pak" />
+    <None Include="bin\x64\Debug\locales\hu.pak" />
+    <None Include="bin\x64\Debug\locales\id.pak" />
+    <None Include="bin\x64\Debug\locales\it.pak" />
+    <None Include="bin\x64\Debug\locales\ja.pak" />
+    <None Include="bin\x64\Debug\locales\kn.pak" />
+    <None Include="bin\x64\Debug\locales\ko.pak" />
+    <None Include="bin\x64\Debug\locales\lt.pak" />
+    <None Include="bin\x64\Debug\locales\lv.pak" />
+    <None Include="bin\x64\Debug\locales\ml.pak" />
+    <None Include="bin\x64\Debug\locales\mr.pak" />
+    <None Include="bin\x64\Debug\locales\ms.pak" />
+    <None Include="bin\x64\Debug\locales\nb.pak" />
+    <None Include="bin\x64\Debug\locales\nl.pak" />
+    <None Include="bin\x64\Debug\locales\pl.pak" />
+    <None Include="bin\x64\Debug\locales\pt-BR.pak" />
+    <None Include="bin\x64\Debug\locales\pt-PT.pak" />
+    <None Include="bin\x64\Debug\locales\ro.pak" />
+    <None Include="bin\x64\Debug\locales\ru.pak" />
+    <None Include="bin\x64\Debug\locales\sk.pak" />
+    <None Include="bin\x64\Debug\locales\sl.pak" />
+    <None Include="bin\x64\Debug\locales\sr.pak" />
+    <None Include="bin\x64\Debug\locales\sv.pak" />
+    <None Include="bin\x64\Debug\locales\sw.pak" />
+    <None Include="bin\x64\Debug\locales\ta.pak" />
+    <None Include="bin\x64\Debug\locales\te.pak" />
+    <None Include="bin\x64\Debug\locales\th.pak" />
+    <None Include="bin\x64\Debug\locales\tr.pak" />
+    <None Include="bin\x64\Debug\locales\uk.pak" />
+    <None Include="bin\x64\Debug\locales\ur.pak" />
+    <None Include="bin\x64\Debug\locales\vi.pak" />
+    <None Include="bin\x64\Debug\locales\zh-CN.pak" />
+    <None Include="bin\x64\Debug\locales\zh-TW.pak" />
+    <None Include="bin\x64\Debug\resources.pak" />
+    <None Include="bin\x64\Debug\snapshot_blob.bin" />
+    <None Include="bin\x64\Debug\v8_context_snapshot.bin" />
+    <None Include="bin\x64\Debug\vk_swiftshader_icd.json" />
+    <None Include="bin\x64\Debug\wwwroot\D.csv" />
+    <None Include="D.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="d_matrix.csv" />
+    <None Include="FodyWeavers.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="node_modules\.bin\csv2json" />
+    <None Include="node_modules\.bin\csv2json.cmd" />
+    <None Include="node_modules\.bin\csv2json.ps1" />
+    <None Include="node_modules\.bin\csv2tsv" />
+    <None Include="node_modules\.bin\csv2tsv.cmd" />
+    <None Include="node_modules\.bin\csv2tsv.ps1" />
+    <None Include="node_modules\.bin\dsv2dsv" />
+    <None Include="node_modules\.bin\dsv2dsv.cmd" />
+    <None Include="node_modules\.bin\dsv2dsv.ps1" />
+    <None Include="node_modules\.bin\dsv2json" />
+    <None Include="node_modules\.bin\dsv2json.cmd" />
+    <None Include="node_modules\.bin\dsv2json.ps1" />
+    <None Include="node_modules\.bin\json2csv" />
+    <None Include="node_modules\.bin\json2csv.cmd" />
+    <None Include="node_modules\.bin\json2csv.ps1" />
+    <None Include="node_modules\.bin\json2dsv" />
+    <None Include="node_modules\.bin\json2dsv.cmd" />
+    <None Include="node_modules\.bin\json2dsv.ps1" />
+    <None Include="node_modules\.bin\json2tsv" />
+    <None Include="node_modules\.bin\json2tsv.cmd" />
+    <None Include="node_modules\.bin\json2tsv.ps1" />
+    <None Include="node_modules\.bin\tsv2csv" />
+    <None Include="node_modules\.bin\tsv2csv.cmd" />
+    <None Include="node_modules\.bin\tsv2csv.ps1" />
+    <None Include="node_modules\.bin\tsv2json" />
+    <None Include="node_modules\.bin\tsv2json.cmd" />
+    <None Include="node_modules\.bin\tsv2json.ps1" />
+    <None Include="node_modules\.package-lock.json" />
+    <None Include="node_modules\commander\CHANGELOG.md" />
+    <None Include="node_modules\commander\LICENSE" />
+    <None Include="node_modules\commander\package-support.json" />
+    <None Include="node_modules\commander\package.json" />
+    <None Include="node_modules\commander\Readme.md" />
+    <None Include="node_modules\d3-array\LICENSE" />
+    <None Include="node_modules\d3-array\package.json" />
+    <None Include="node_modules\d3-array\README.md" />
+    <None Include="node_modules\d3-axis\LICENSE" />
+    <None Include="node_modules\d3-axis\package.json" />
+    <None Include="node_modules\d3-axis\README.md" />
+    <None Include="node_modules\d3-brush\LICENSE" />
+    <None Include="node_modules\d3-brush\package.json" />
+    <None Include="node_modules\d3-brush\README.md" />
+    <None Include="node_modules\d3-chord\LICENSE" />
+    <None Include="node_modules\d3-chord\package.json" />
+    <None Include="node_modules\d3-chord\README.md" />
+    <None Include="node_modules\d3-color\LICENSE" />
+    <None Include="node_modules\d3-color\package.json" />
+    <None Include="node_modules\d3-color\README.md" />
+    <None Include="node_modules\d3-contour\LICENSE" />
+    <None Include="node_modules\d3-contour\package.json" />
+    <None Include="node_modules\d3-contour\README.md" />
+    <None Include="node_modules\d3-delaunay\LICENSE" />
+    <None Include="node_modules\d3-delaunay\package.json" />
+    <None Include="node_modules\d3-delaunay\README.md" />
+    <None Include="node_modules\d3-dispatch\LICENSE" />
+    <None Include="node_modules\d3-dispatch\package.json" />
+    <None Include="node_modules\d3-dispatch\README.md" />
+    <None Include="node_modules\d3-drag\LICENSE" />
+    <None Include="node_modules\d3-drag\package.json" />
+    <None Include="node_modules\d3-drag\README.md" />
+    <None Include="node_modules\d3-dsv\LICENSE" />
+    <None Include="node_modules\d3-dsv\package.json" />
+    <None Include="node_modules\d3-dsv\README.md" />
+    <None Include="node_modules\d3-ease\LICENSE" />
+    <None Include="node_modules\d3-ease\package.json" />
+    <None Include="node_modules\d3-ease\README.md" />
+    <None Include="node_modules\d3-fetch\LICENSE" />
+    <None Include="node_modules\d3-fetch\package.json" />
+    <None Include="node_modules\d3-fetch\README.md" />
+    <None Include="node_modules\d3-force\LICENSE" />
+    <None Include="node_modules\d3-force\package.json" />
+    <None Include="node_modules\d3-force\README.md" />
+    <None Include="node_modules\d3-format\LICENSE" />
+    <None Include="node_modules\d3-format\locale\ar-001.json" />
+    <None Include="node_modules\d3-format\locale\ar-AE.json" />
+    <None Include="node_modules\d3-format\locale\ar-BH.json" />
+    <None Include="node_modules\d3-format\locale\ar-DJ.json" />
+    <None Include="node_modules\d3-format\locale\ar-DZ.json" />
+    <None Include="node_modules\d3-format\locale\ar-EG.json" />
+    <None Include="node_modules\d3-format\locale\ar-EH.json" />
+    <None Include="node_modules\d3-format\locale\ar-ER.json" />
+    <None Include="node_modules\d3-format\locale\ar-IL.json" />
+    <None Include="node_modules\d3-format\locale\ar-IQ.json" />
+    <None Include="node_modules\d3-format\locale\ar-JO.json" />
+    <None Include="node_modules\d3-format\locale\ar-KM.json" />
+    <None Include="node_modules\d3-format\locale\ar-KW.json" />
+    <None Include="node_modules\d3-format\locale\ar-LB.json" />
+    <None Include="node_modules\d3-format\locale\ar-LY.json" />
+    <None Include="node_modules\d3-format\locale\ar-MA.json" />
+    <None Include="node_modules\d3-format\locale\ar-MR.json" />
+    <None Include="node_modules\d3-format\locale\ar-OM.json" />
+    <None Include="node_modules\d3-format\locale\ar-PS.json" />
+    <None Include="node_modules\d3-format\locale\ar-QA.json" />
+    <None Include="node_modules\d3-format\locale\ar-SA.json" />
+    <None Include="node_modules\d3-format\locale\ar-SD.json" />
+    <None Include="node_modules\d3-format\locale\ar-SO.json" />
+    <None Include="node_modules\d3-format\locale\ar-SS.json" />
+    <None Include="node_modules\d3-format\locale\ar-SY.json" />
+    <None Include="node_modules\d3-format\locale\ar-TD.json" />
+    <None Include="node_modules\d3-format\locale\ar-TN.json" />
+    <None Include="node_modules\d3-format\locale\ar-YE.json" />
+    <None Include="node_modules\d3-format\locale\ca-ES.json" />
+    <None Include="node_modules\d3-format\locale\cs-CZ.json" />
+    <None Include="node_modules\d3-format\locale\da-DK.json" />
+    <None Include="node_modules\d3-format\locale\de-CH.json" />
+    <None Include="node_modules\d3-format\locale\de-DE.json" />
+    <None Include="node_modules\d3-format\locale\en-CA.json" />
+    <None Include="node_modules\d3-format\locale\en-GB.json" />
+    <None Include="node_modules\d3-format\locale\en-IE.json" />
+    <None Include="node_modules\d3-format\locale\en-IN.json" />
+    <None Include="node_modules\d3-format\locale\en-US.json" />
+    <None Include="node_modules\d3-format\locale\es-BO.json" />
+    <None Include="node_modules\d3-format\locale\es-ES.json" />
+    <None Include="node_modules\d3-format\locale\es-MX.json" />
+    <None Include="node_modules\d3-format\locale\fi-FI.json" />
+    <None Include="node_modules\d3-format\locale\fr-CA.json" />
+    <None Include="node_modules\d3-format\locale\fr-FR.json" />
+    <None Include="node_modules\d3-format\locale\he-IL.json" />
+    <None Include="node_modules\d3-format\locale\hu-HU.json" />
+    <None Include="node_modules\d3-format\locale\it-IT.json" />
+    <None Include="node_modules\d3-format\locale\ja-JP.json" />
+    <None Include="node_modules\d3-format\locale\ko-KR.json" />
+    <None Include="node_modules\d3-format\locale\mk-MK.json" />
+    <None Include="node_modules\d3-format\locale\nl-NL.json" />
+    <None Include="node_modules\d3-format\locale\pl-PL.json" />
+    <None Include="node_modules\d3-format\locale\pt-BR.json" />
+    <None Include="node_modules\d3-format\locale\pt-PT.json" />
+    <None Include="node_modules\d3-format\locale\ru-RU.json" />
+    <None Include="node_modules\d3-format\locale\sl-SI.json" />
+    <None Include="node_modules\d3-format\locale\sv-SE.json" />
+    <None Include="node_modules\d3-format\locale\uk-UA.json" />
+    <None Include="node_modules\d3-format\locale\zh-CN.json" />
+    <None Include="node_modules\d3-format\package.json" />
+    <None Include="node_modules\d3-format\README.md" />
+    <None Include="node_modules\d3-geo\LICENSE" />
+    <None Include="node_modules\d3-geo\package.json" />
+    <None Include="node_modules\d3-geo\README.md" />
+    <None Include="node_modules\d3-hierarchy\LICENSE" />
+    <None Include="node_modules\d3-hierarchy\package.json" />
+    <None Include="node_modules\d3-hierarchy\README.md" />
+    <None Include="node_modules\d3-interpolate\LICENSE" />
+    <None Include="node_modules\d3-interpolate\package.json" />
+    <None Include="node_modules\d3-interpolate\README.md" />
+    <None Include="node_modules\d3-path\LICENSE" />
+    <None Include="node_modules\d3-path\package.json" />
+    <None Include="node_modules\d3-path\README.md" />
+    <None Include="node_modules\d3-polygon\LICENSE" />
+    <None Include="node_modules\d3-polygon\package.json" />
+    <None Include="node_modules\d3-polygon\README.md" />
+    <None Include="node_modules\d3-quadtree\LICENSE" />
+    <None Include="node_modules\d3-quadtree\package.json" />
+    <None Include="node_modules\d3-quadtree\README.md" />
+    <None Include="node_modules\d3-random\LICENSE" />
+    <None Include="node_modules\d3-random\package.json" />
+    <None Include="node_modules\d3-random\README.md" />
+    <None Include="node_modules\d3-scale-chromatic\LICENSE" />
+    <None Include="node_modules\d3-scale-chromatic\package.json" />
+    <None Include="node_modules\d3-scale-chromatic\README.md" />
+    <None Include="node_modules\d3-scale\LICENSE" />
+    <None Include="node_modules\d3-scale\package.json" />
+    <None Include="node_modules\d3-scale\README.md" />
+    <None Include="node_modules\d3-selection\LICENSE" />
+    <None Include="node_modules\d3-selection\package.json" />
+    <None Include="node_modules\d3-selection\README.md" />
+    <None Include="node_modules\d3-shape\LICENSE" />
+    <None Include="node_modules\d3-shape\package.json" />
+    <None Include="node_modules\d3-shape\README.md" />
+    <None Include="node_modules\d3-time-format\LICENSE" />
+    <None Include="node_modules\d3-time-format\locale\ar-EG.json" />
+    <None Include="node_modules\d3-time-format\locale\ar-SY.json" />
+    <None Include="node_modules\d3-time-format\locale\ca-ES.json" />
+    <None Include="node_modules\d3-time-format\locale\cs-CZ.json" />
+    <None Include="node_modules\d3-time-format\locale\da-DK.json" />
+    <None Include="node_modules\d3-time-format\locale\de-CH.json" />
+    <None Include="node_modules\d3-time-format\locale\de-DE.json" />
+    <None Include="node_modules\d3-time-format\locale\en-CA.json" />
+    <None Include="node_modules\d3-time-format\locale\en-GB.json" />
+    <None Include="node_modules\d3-time-format\locale\en-US.json" />
+    <None Include="node_modules\d3-time-format\locale\es-ES.json" />
+    <None Include="node_modules\d3-time-format\locale\es-MX.json" />
+    <None Include="node_modules\d3-time-format\locale\fa-IR.json" />
+    <None Include="node_modules\d3-time-format\locale\fi-FI.json" />
+    <None Include="node_modules\d3-time-format\locale\fr-CA.json" />
+    <None Include="node_modules\d3-time-format\locale\fr-FR.json" />
+    <None Include="node_modules\d3-time-format\locale\he-IL.json" />
+    <None Include="node_modules\d3-time-format\locale\hr-HR.json" />
+    <None Include="node_modules\d3-time-format\locale\hu-HU.json" />
+    <None Include="node_modules\d3-time-format\locale\it-IT.json" />
+    <None Include="node_modules\d3-time-format\locale\ja-JP.json" />
+    <None Include="node_modules\d3-time-format\locale\ko-KR.json" />
+    <None Include="node_modules\d3-time-format\locale\mk-MK.json" />
+    <None Include="node_modules\d3-time-format\locale\nb-NO.json" />
+    <None Include="node_modules\d3-time-format\locale\nl-BE.json" />
+    <None Include="node_modules\d3-time-format\locale\nl-NL.json" />
+    <None Include="node_modules\d3-time-format\locale\pl-PL.json" />
+    <None Include="node_modules\d3-time-format\locale\pt-BR.json" />
+    <None Include="node_modules\d3-time-format\locale\ru-RU.json" />
+    <None Include="node_modules\d3-time-format\locale\sv-SE.json" />
+    <None Include="node_modules\d3-time-format\locale\tr-TR.json" />
+    <None Include="node_modules\d3-time-format\locale\uk-UA.json" />
+    <None Include="node_modules\d3-time-format\locale\zh-CN.json" />
+    <None Include="node_modules\d3-time-format\locale\zh-TW.json" />
+    <None Include="node_modules\d3-time-format\package.json" />
+    <None Include="node_modules\d3-time-format\README.md" />
+    <None Include="node_modules\d3-timer\LICENSE" />
+    <None Include="node_modules\d3-timer\package.json" />
+    <None Include="node_modules\d3-timer\README.md" />
+    <None Include="node_modules\d3-time\LICENSE" />
+    <None Include="node_modules\d3-time\package.json" />
+    <None Include="node_modules\d3-time\README.md" />
+    <None Include="node_modules\d3-transition\LICENSE" />
+    <None Include="node_modules\d3-transition\package.json" />
+    <None Include="node_modules\d3-transition\README.md" />
+    <None Include="node_modules\d3-zoom\LICENSE" />
+    <None Include="node_modules\d3-zoom\package.json" />
+    <None Include="node_modules\d3-zoom\README.md" />
+    <None Include="node_modules\d3\LICENSE" />
+    <None Include="node_modules\d3\package.json" />
+    <None Include="node_modules\d3\README.md" />
+    <None Include="node_modules\delaunator\LICENSE" />
+    <None Include="node_modules\delaunator\package.json" />
+    <None Include="node_modules\delaunator\README.md" />
+    <None Include="node_modules\iconv-lite\.github\dependabot.yml" />
+    <None Include="node_modules\iconv-lite\Changelog.md" />
+    <None Include="node_modules\iconv-lite\encodings\tables\big5-added.json" />
+    <None Include="node_modules\iconv-lite\encodings\tables\cp936.json" />
+    <None Include="node_modules\iconv-lite\encodings\tables\cp949.json" />
+    <None Include="node_modules\iconv-lite\encodings\tables\cp950.json" />
+    <None Include="node_modules\iconv-lite\encodings\tables\eucjp.json" />
+    <None Include="node_modules\iconv-lite\encodings\tables\gb18030-ranges.json" />
+    <None Include="node_modules\iconv-lite\encodings\tables\gbk-added.json" />
+    <None Include="node_modules\iconv-lite\encodings\tables\shiftjis.json" />
+    <None Include="node_modules\iconv-lite\LICENSE" />
+    <None Include="node_modules\iconv-lite\package.json" />
+    <None Include="node_modules\iconv-lite\README.md" />
+    <None Include="node_modules\internmap\LICENSE" />
+    <None Include="node_modules\internmap\package.json" />
+    <None Include="node_modules\internmap\README.md" />
+    <None Include="node_modules\robust-predicates\LICENSE" />
+    <None Include="node_modules\robust-predicates\package.json" />
+    <None Include="node_modules\robust-predicates\README.md" />
+    <None Include="node_modules\rw\.eslintrc" />
+    <None Include="node_modules\rw\.npmignore" />
+    <None Include="node_modules\rw\LICENSE" />
+    <None Include="node_modules\rw\package.json" />
+    <None Include="node_modules\rw\README.md" />
+    <None Include="node_modules\rw\test\cat-async" />
+    <None Include="node_modules\rw\test\cat-sync" />
+    <None Include="node_modules\rw\test\encode-object-async" />
+    <None Include="node_modules\rw\test\encode-object-sync" />
+    <None Include="node_modules\rw\test\encode-string-async" />
+    <None Include="node_modules\rw\test\encode-string-sync" />
+    <None Include="node_modules\rw\test\encoding-async" />
+    <None Include="node_modules\rw\test\encoding-sync" />
+    <None Include="node_modules\rw\test\run-tests" />
+    <None Include="node_modules\rw\test\wc-async" />
+    <None Include="node_modules\rw\test\wc-sync" />
+    <None Include="node_modules\rw\test\write-async" />
+    <None Include="node_modules\rw\test\write-sync" />
+    <None Include="node_modules\safer-buffer\LICENSE" />
+    <None Include="node_modules\safer-buffer\package.json" />
+    <None Include="node_modules\safer-buffer\Porting-Buffer.md" />
+    <None Include="node_modules\safer-buffer\Readme.md" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="wwwroot\D.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="速度场u.xlsx" />
+    <None Include="速度场v.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\ARM64\Debug\AduSkin.dll" />
+    <Content Include="bin\ARM64\Debug\baiduditu.js" />
+    <Content Include="bin\ARM64\Debug\bmap.js" />
+    <Content Include="bin\ARM64\Debug\CefSharp.BrowserSubprocess.Core.dll" />
+    <Content Include="bin\ARM64\Debug\CefSharp.BrowserSubprocess.Core.pdb" />
+    <Content Include="bin\ARM64\Debug\CefSharp.BrowserSubprocess.exe" />
+    <Content Include="bin\ARM64\Debug\CefSharp.BrowserSubprocess.pdb" />
+    <Content Include="bin\ARM64\Debug\CefSharp.Core.dll" />
+    <Content Include="bin\ARM64\Debug\CefSharp.Core.pdb" />
+    <Content Include="bin\ARM64\Debug\CefSharp.Core.Runtime.dll" />
+    <Content Include="bin\ARM64\Debug\CefSharp.Core.Runtime.pdb" />
+    <Resource Include="bin\ARM64\Debug\CefSharp.Core.Runtime.xml" />
+    <Resource Include="bin\ARM64\Debug\CefSharp.Core.xml" />
+    <Content Include="bin\ARM64\Debug\CefSharp.dll" />
+    <Content Include="bin\ARM64\Debug\CefSharp.pdb" />
+    <Content Include="bin\ARM64\Debug\CefSharp.Wpf.dll" />
+    <Content Include="bin\ARM64\Debug\CefSharp.Wpf.pdb" />
+    <Resource Include="bin\ARM64\Debug\CefSharp.Wpf.xml" />
+    <Resource Include="bin\ARM64\Debug\CefSharp.xml" />
+    <Content Include="bin\ARM64\Debug\chart1.html" />
+    <Content Include="bin\ARM64\Debug\chrome_elf.dll" />
+    <Content Include="bin\ARM64\Debug\d3.js" />
+    <Content Include="bin\ARM64\Debug\d3.min.js" />
+    <Content Include="bin\ARM64\Debug\d3dcompiler_47.dll" />
+    <Content Include="bin\ARM64\Debug\data.js" />
+    <Content Include="bin\ARM64\Debug\echarts-gl.js" />
+    <Content Include="bin\ARM64\Debug\echarts.js" />
+    <Content Include="bin\ARM64\Debug\EChartsTest.exe" />
+    <Content Include="bin\ARM64\Debug\EChartsTest.pdb" />
+    <Content Include="bin\ARM64\Debug\ExcelDataReader.DataSet.dll" />
+    <Content Include="bin\ARM64\Debug\ExcelDataReader.DataSet.pdb" />
+    <Resource Include="bin\ARM64\Debug\ExcelDataReader.DataSet.xml" />
+    <Content Include="bin\ARM64\Debug\ExcelDataReader.dll" />
+    <Content Include="bin\ARM64\Debug\ExcelDataReader.pdb" />
+    <Resource Include="bin\ARM64\Debug\ExcelDataReader.xml" />
+    <Content Include="bin\ARM64\Debug\heatmap-large.html" />
+    <Content Include="bin\ARM64\Debug\libcef.dll" />
+    <Content Include="bin\ARM64\Debug\libEGL.dll" />
+    <Content Include="bin\ARM64\Debug\libGLESv2.dll" />
+    <Resource Include="bin\ARM64\Debug\LICENSE.txt" />
+    <Content Include="bin\ARM64\Debug\MiniExcel.dll" />
+    <Content Include="bin\ARM64\Debug\Newtonsoft.Json.dll" />
+    <Resource Include="bin\ARM64\Debug\Newtonsoft.Json.xml" />
+    <Resource Include="bin\ARM64\Debug\README.txt" />
+    <Content Include="bin\ARM64\Debug\scatter3d-simplex-noise.html" />
+    <Content Include="bin\ARM64\Debug\simplex-noise.js" />
+    <Resource Include="bin\ARM64\Debug\System.Diagnostics.DiagnosticSource.xml" />
+    <Content Include="bin\ARM64\Debug\vk_swiftshader.dll" />
+    <Content Include="bin\ARM64\Debug\vulkan-1.dll" />
+    <Content Include="bin\ARM64\Debug\winds.js" />
+    <Content Include="bin\ARM64\Debug\三维图-imagesurface-动态-z=0不变.html" />
+    <Content Include="bin\ARM64\Debug\剖面图.html" />
+    <Content Include="bin\ARM64\Debug\热力图.html" />
+    <Content Include="bin\ARM64\Debug\矢量图-百度地图.html" />
+    <Content Include="bin\Debug\baiduditu.js" />
+    <Content Include="bin\Debug\bmap.js" />
+    <Content Include="bin\Debug\c.js" />
+    <Resource Include="bin\Debug\CefSharp.Core.xml" />
+    <Resource Include="bin\Debug\CefSharp.Wpf.xml" />
+    <Resource Include="bin\Debug\CefSharp.xml" />
+    <Content Include="bin\Debug\chart1.html" />
+    <Content Include="bin\Debug\chart2.html" />
+    <Content Include="bin\Debug\chenjiwunongdu2.js" />
+    <Resource Include="bin\Debug\config.xml" />
+    <Content Include="bin\Debug\d.js" />
+    <Content Include="bin\Debug\d3.js" />
+    <Content Include="bin\Debug\d3.min.js" />
+    <Content Include="bin\Debug\data.js" />
+    <Content Include="bin\Debug\echarts-gl.js" />
+    <Content Include="bin\Debug\echarts.js" />
+    <Content Include="bin\Debug\EChartsTest.exe" />
+    <Content Include="bin\Debug\EChartsTest.pdb" />
+    <Resource Include="bin\Debug\ExcelDataReader.DataSet.xml" />
+    <Resource Include="bin\Debug\ExcelDataReader.xml" />
+    <Content Include="bin\Debug\heatmap-large.html" />
+    <Resource Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\outcsv\c.js" />
+    <Content Include="bin\Debug\outcsv\c_v.js" />
+    <Content Include="bin\Debug\outcsv\d.js" />
+    <Content Include="bin\Debug\outcsv\d_v.js" />
+    <Content Include="bin\Debug\outcsv\s.js" />
+    <Content Include="bin\Debug\outcsv\s_v.js" />
+    <Content Include="bin\Debug\outcsv\u.js" />
+    <Content Include="bin\Debug\outcsv\u_v.js" />
+    <Content Include="bin\Debug\outcsv\v.js" />
+    <Content Include="bin\Debug\outcsv\v_v.js" />
+    <Content Include="bin\Debug\outcsv\z.js" />
+    <Content Include="bin\Debug\outcsv\z_v.js" />
+    <Resource Include="bin\Debug\output_boolArray.txt" />
+    <Resource Include="bin\Debug\parameters.txt" />
+    <Content Include="bin\Debug\s.js" />
+    <Content Include="bin\Debug\scatter3d-simplex-noise.html" />
+    <Content Include="bin\Debug\shuishen.js" />
+    <Content Include="bin\Debug\simplex-noise.js" />
+    <Resource Include="bin\Debug\System.Diagnostics.DiagnosticSource.xml" />
+    <Content Include="bin\Debug\tranlsbasic20231008.dll" />
+    <Content Include="bin\Debug\untitled20231110.dll" />
+    <Content Include="bin\Debug\u_v.js" />
+    <Content Include="bin\Debug\winds.js" />
+    <Content Include="bin\Debug\winds2.js" />
+    <Content Include="bin\Debug\x64\CefSharp.BrowserSubprocess.Core.dll" />
+    <Content Include="bin\Debug\x64\CefSharp.BrowserSubprocess.Core.pdb" />
+    <Content Include="bin\Debug\x64\CefSharp.BrowserSubprocess.exe" />
+    <Content Include="bin\Debug\x64\CefSharp.BrowserSubprocess.pdb" />
+    <Content Include="bin\Debug\x64\CefSharp.Core.Runtime.dll" />
+    <Content Include="bin\Debug\x64\CefSharp.Core.Runtime.pdb" />
+    <Resource Include="bin\Debug\x64\CefSharp.Core.Runtime.xml" />
+    <Content Include="bin\Debug\x64\CefSharp.dll" />
+    <Content Include="bin\Debug\x64\chrome_elf.dll" />
+    <Content Include="bin\Debug\x64\d3dcompiler_47.dll" />
+    <Content Include="bin\Debug\x64\libcef.dll" />
+    <Content Include="bin\Debug\x64\libEGL.dll" />
+    <Content Include="bin\Debug\x64\libGLESv2.dll" />
+    <Resource Include="bin\Debug\x64\LICENSE.txt" />
+    <Resource Include="bin\Debug\x64\README.txt" />
+    <Content Include="bin\Debug\x64\vk_swiftshader.dll" />
+    <Content Include="bin\Debug\x64\vulkan-1.dll" />
+    <Content Include="bin\Debug\x86\CefSharp.BrowserSubprocess.Core.dll" />
+    <Content Include="bin\Debug\x86\CefSharp.BrowserSubprocess.Core.pdb" />
+    <Content Include="bin\Debug\x86\CefSharp.BrowserSubprocess.exe" />
+    <Content Include="bin\Debug\x86\CefSharp.BrowserSubprocess.pdb" />
+    <Content Include="bin\Debug\x86\CefSharp.Core.Runtime.dll" />
+    <Content Include="bin\Debug\x86\CefSharp.Core.Runtime.pdb" />
+    <Resource Include="bin\Debug\x86\CefSharp.Core.Runtime.xml" />
+    <Content Include="bin\Debug\x86\CefSharp.dll" />
+    <Content Include="bin\Debug\x86\chrome_elf.dll" />
+    <Content Include="bin\Debug\x86\d3dcompiler_47.dll" />
+    <Content Include="bin\Debug\x86\libcef.dll" />
+    <Content Include="bin\Debug\x86\libEGL.dll" />
+    <Content Include="bin\Debug\x86\libGLESv2.dll" />
+    <Resource Include="bin\Debug\x86\LICENSE.txt" />
+    <Resource Include="bin\Debug\x86\README.txt" />
+    <Content Include="bin\Debug\x86\vk_swiftshader.dll" />
+    <Content Include="bin\Debug\x86\vulkan-1.dll" />
+    <Content Include="bin\Debug\三维图-imagesurface-动态-z=0不变.html" />
+    <Content Include="bin\Debug\剖面图.html" />
+    <Content Include="bin\Debug\地形图新.html" />
+    <Content Include="bin\Debug\水深.html" />
+    <Content Include="bin\Debug\沉积物浓度图.html" />
+    <Content Include="bin\Debug\沉积物浓度图新.html" />
+    <Content Include="bin\Debug\热力图.html" />
+    <Content Include="bin\Debug\矢量图-百度地图.html" />
+    <Content Include="bin\Debug\速度场.html" />
+    <Content Include="bin\x64\Debug\AduSkin.dll" />
+    <Content Include="bin\x64\Debug\baiduditu.js" />
+    <Content Include="bin\x64\Debug\bmap.js" />
+    <Content Include="bin\x64\Debug\CefSharp.BrowserSubprocess.Core.dll" />
+    <Content Include="bin\x64\Debug\CefSharp.BrowserSubprocess.Core.pdb" />
+    <Content Include="bin\x64\Debug\CefSharp.BrowserSubprocess.exe" />
+    <Content Include="bin\x64\Debug\CefSharp.BrowserSubprocess.pdb" />
+    <Content Include="bin\x64\Debug\CefSharp.Core.dll" />
+    <Content Include="bin\x64\Debug\CefSharp.Core.pdb" />
+    <Content Include="bin\x64\Debug\CefSharp.Core.Runtime.dll" />
+    <Content Include="bin\x64\Debug\CefSharp.Core.Runtime.pdb" />
+    <Resource Include="bin\x64\Debug\CefSharp.Core.Runtime.xml" />
+    <Resource Include="bin\x64\Debug\CefSharp.Core.xml" />
+    <Content Include="bin\x64\Debug\CefSharp.dll" />
+    <Content Include="bin\x64\Debug\CefSharp.pdb" />
+    <Content Include="bin\x64\Debug\CefSharp.Wpf.dll" />
+    <Content Include="bin\x64\Debug\CefSharp.Wpf.pdb" />
+    <Resource Include="bin\x64\Debug\CefSharp.Wpf.xml" />
+    <Resource Include="bin\x64\Debug\CefSharp.xml" />
+    <Content Include="bin\x64\Debug\chart1.html" />
+    <Content Include="bin\x64\Debug\chrome_elf.dll" />
+    <Content Include="bin\x64\Debug\d3.js" />
+    <Content Include="bin\x64\Debug\d3.min.js" />
+    <Content Include="bin\x64\Debug\d3dcompiler_47.dll" />
+    <Content Include="bin\x64\Debug\data.js" />
+    <Content Include="bin\x64\Debug\echarts-gl.js" />
+    <Content Include="bin\x64\Debug\echarts.js" />
+    <Content Include="bin\x64\Debug\EChartsTest.exe" />
+    <Content Include="bin\x64\Debug\EChartsTest.pdb" />
+    <Content Include="bin\x64\Debug\ExcelDataReader.DataSet.dll" />
+    <Content Include="bin\x64\Debug\ExcelDataReader.DataSet.pdb" />
+    <Resource Include="bin\x64\Debug\ExcelDataReader.DataSet.xml" />
+    <Content Include="bin\x64\Debug\ExcelDataReader.dll" />
+    <Content Include="bin\x64\Debug\ExcelDataReader.pdb" />
+    <Resource Include="bin\x64\Debug\ExcelDataReader.xml" />
+    <Content Include="bin\x64\Debug\heatmap-large.html" />
+    <Content Include="bin\x64\Debug\libcef.dll" />
+    <Content Include="bin\x64\Debug\libEGL.dll" />
+    <Content Include="bin\x64\Debug\libGLESv2.dll" />
+    <Content Include="bin\x64\Debug\libuntitled.dll" />
+    <Resource Include="bin\x64\Debug\LICENSE.txt" />
+    <Content Include="bin\x64\Debug\MiniExcel.dll" />
+    <Content Include="bin\x64\Debug\Newtonsoft.Json.dll" />
+    <Resource Include="bin\x64\Debug\Newtonsoft.Json.xml" />
+    <Resource Include="bin\x64\Debug\README.txt" />
+    <Content Include="bin\x64\Debug\scatter3d-simplex-noise.html" />
+    <Content Include="bin\x64\Debug\simplex-noise.js" />
+    <Resource Include="bin\x64\Debug\System.Diagnostics.DiagnosticSource.xml" />
+    <Content Include="bin\x64\Debug\vk_swiftshader.dll" />
+    <Content Include="bin\x64\Debug\vulkan-1.dll" />
+    <Content Include="bin\x64\Debug\winds.js" />
+    <Content Include="bin\x64\Debug\三维图-imagesurface-动态-z=0不变.html" />
+    <Content Include="bin\x64\Debug\剖面图.html" />
+    <Content Include="bin\x64\Debug\热力图.html" />
+    <Content Include="bin\x64\Debug\矢量图-百度地图.html" />
+    <Content Include="bin\\Debug\\outcsv\\*.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="c.js" />
+    <Resource Include="FodyWeavers.xml" />
+    <Content Include="libuntitled.dll" />
+    <Content Include="shuishen.js" />
+    <Content Include="水深.html" />
+    <Content Include="速度场.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="1.html" />
+    <Content Include="2.html" />
+    <Content Include="3.html" />
+    <Content Include="4.html" />
+    <Content Include="5.html" />
+    <Content Include="baiduditu.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bin\Debug\libuntitled.dll" />
+    <Content Include="bin\x86\Debug\libuntitled.dll" />
+    <Content Include="bmap.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="chart1.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="heatmap-large.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\8666542_save_icon.ico" />
+    <Resource Include="Resources\8666572_zoom_in_icon.ico" />
+    <Resource Include="Resources\8666596_zoom_out_icon.ico" />
+    <Resource Include="Resources\8666615_settings_icon.ico" />
+    <Resource Include="Resources\8666634_play_icon.ico" />
+    <Resource Include="Resources\8666650_file_plus_icon.ico" />
+    <Resource Include="Resources\8666726_mouse_pointer_icon.ico" />
+    <Resource Include="Resources\8666786_x_octagon_delete_icon.ico" />
+    <Resource Include="Resources\8666788_info_information_icon.ico" />
+    <Resource Include="Resources\8666802_menu_navigation_icon.ico" />
+    <Resource Include="Resources\6d99df782e7a11e24d5e65bc11d25d0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\4d95f861b155540ca440f4a33f3b0e0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="scatter3d-simplex-noise.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="simplex-noise.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="三维图-imagesurface-动态-z=0不变.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="剖面图.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="热力图.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="矢量图-百度地图.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="d3.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="echarts-gl.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="echarts.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="d3.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="data.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="index.html" />
+    <Content Include="node_modules\commander\esm.mjs" />
+    <Content Include="node_modules\commander\index.js" />
+    <Content Include="node_modules\d3-array\dist\d3-array.js" />
+    <Content Include="node_modules\d3-array\dist\d3-array.min.js" />
+    <Content Include="node_modules\d3-array\src\array.js" />
+    <Content Include="node_modules\d3-array\src\ascending.js" />
+    <Content Include="node_modules\d3-array\src\bin.js" />
+    <Content Include="node_modules\d3-array\src\bisect.js" />
+    <Content Include="node_modules\d3-array\src\bisector.js" />
+    <Content Include="node_modules\d3-array\src\blur.js" />
+    <Content Include="node_modules\d3-array\src\constant.js" />
+    <Content Include="node_modules\d3-array\src\count.js" />
+    <Content Include="node_modules\d3-array\src\cross.js" />
+    <Content Include="node_modules\d3-array\src\cumsum.js" />
+    <Content Include="node_modules\d3-array\src\descending.js" />
+    <Content Include="node_modules\d3-array\src\deviation.js" />
+    <Content Include="node_modules\d3-array\src\difference.js" />
+    <Content Include="node_modules\d3-array\src\disjoint.js" />
+    <Content Include="node_modules\d3-array\src\every.js" />
+    <Content Include="node_modules\d3-array\src\extent.js" />
+    <Content Include="node_modules\d3-array\src\filter.js" />
+    <Content Include="node_modules\d3-array\src\fsum.js" />
+    <Content Include="node_modules\d3-array\src\greatest.js" />
+    <Content Include="node_modules\d3-array\src\greatestIndex.js" />
+    <Content Include="node_modules\d3-array\src\group.js" />
+    <Content Include="node_modules\d3-array\src\groupSort.js" />
+    <Content Include="node_modules\d3-array\src\identity.js" />
+    <Content Include="node_modules\d3-array\src\index.js" />
+    <Content Include="node_modules\d3-array\src\intersection.js" />
+    <Content Include="node_modules\d3-array\src\least.js" />
+    <Content Include="node_modules\d3-array\src\leastIndex.js" />
+    <Content Include="node_modules\d3-array\src\map.js" />
+    <Content Include="node_modules\d3-array\src\max.js" />
+    <Content Include="node_modules\d3-array\src\maxIndex.js" />
+    <Content Include="node_modules\d3-array\src\mean.js" />
+    <Content Include="node_modules\d3-array\src\median.js" />
+    <Content Include="node_modules\d3-array\src\merge.js" />
+    <Content Include="node_modules\d3-array\src\min.js" />
+    <Content Include="node_modules\d3-array\src\minIndex.js" />
+    <Content Include="node_modules\d3-array\src\mode.js" />
+    <Content Include="node_modules\d3-array\src\nice.js" />
+    <Content Include="node_modules\d3-array\src\number.js" />
+    <Content Include="node_modules\d3-array\src\pairs.js" />
+    <Content Include="node_modules\d3-array\src\permute.js" />
+    <Content Include="node_modules\d3-array\src\quantile.js" />
+    <Content Include="node_modules\d3-array\src\quickselect.js" />
+    <Content Include="node_modules\d3-array\src\range.js" />
+    <Content Include="node_modules\d3-array\src\rank.js" />
+    <Content Include="node_modules\d3-array\src\reduce.js" />
+    <Content Include="node_modules\d3-array\src\reverse.js" />
+    <Content Include="node_modules\d3-array\src\scan.js" />
+    <Content Include="node_modules\d3-array\src\shuffle.js" />
+    <Content Include="node_modules\d3-array\src\some.js" />
+    <Content Include="node_modules\d3-array\src\sort.js" />
+    <Content Include="node_modules\d3-array\src\subset.js" />
+    <Content Include="node_modules\d3-array\src\sum.js" />
+    <Content Include="node_modules\d3-array\src\superset.js" />
+    <Content Include="node_modules\d3-array\src\threshold\freedmanDiaconis.js" />
+    <Content Include="node_modules\d3-array\src\threshold\scott.js" />
+    <Content Include="node_modules\d3-array\src\threshold\sturges.js" />
+    <Content Include="node_modules\d3-array\src\ticks.js" />
+    <Content Include="node_modules\d3-array\src\transpose.js" />
+    <Content Include="node_modules\d3-array\src\union.js" />
+    <Content Include="node_modules\d3-array\src\variance.js" />
+    <Content Include="node_modules\d3-array\src\zip.js" />
+    <Content Include="node_modules\d3-axis\dist\d3-axis.js" />
+    <Content Include="node_modules\d3-axis\dist\d3-axis.min.js" />
+    <Content Include="node_modules\d3-axis\src\axis.js" />
+    <Content Include="node_modules\d3-axis\src\identity.js" />
+    <Content Include="node_modules\d3-axis\src\index.js" />
+    <Content Include="node_modules\d3-brush\dist\d3-brush.js" />
+    <Content Include="node_modules\d3-brush\dist\d3-brush.min.js" />
+    <Content Include="node_modules\d3-brush\src\brush.js" />
+    <Content Include="node_modules\d3-brush\src\constant.js" />
+    <Content Include="node_modules\d3-brush\src\event.js" />
+    <Content Include="node_modules\d3-brush\src\index.js" />
+    <Content Include="node_modules\d3-brush\src\noevent.js" />
+    <Content Include="node_modules\d3-chord\dist\d3-chord.js" />
+    <Content Include="node_modules\d3-chord\dist\d3-chord.min.js" />
+    <Content Include="node_modules\d3-chord\src\array.js" />
+    <Content Include="node_modules\d3-chord\src\chord.js" />
+    <Content Include="node_modules\d3-chord\src\constant.js" />
+    <Content Include="node_modules\d3-chord\src\index.js" />
+    <Content Include="node_modules\d3-chord\src\math.js" />
+    <Content Include="node_modules\d3-chord\src\ribbon.js" />
+    <Content Include="node_modules\d3-color\dist\d3-color.js" />
+    <Content Include="node_modules\d3-color\dist\d3-color.min.js" />
+    <Content Include="node_modules\d3-color\src\color.js" />
+    <Content Include="node_modules\d3-color\src\cubehelix.js" />
+    <Content Include="node_modules\d3-color\src\define.js" />
+    <Content Include="node_modules\d3-color\src\index.js" />
+    <Content Include="node_modules\d3-color\src\lab.js" />
+    <Content Include="node_modules\d3-color\src\math.js" />
+    <Content Include="node_modules\d3-contour\dist\d3-contour.js" />
+    <Content Include="node_modules\d3-contour\dist\d3-contour.min.js" />
+    <Content Include="node_modules\d3-contour\src\area.js" />
+    <Content Include="node_modules\d3-contour\src\array.js" />
+    <Content Include="node_modules\d3-contour\src\ascending.js" />
+    <Content Include="node_modules\d3-contour\src\constant.js" />
+    <Content Include="node_modules\d3-contour\src\contains.js" />
+    <Content Include="node_modules\d3-contour\src\contours.js" />
+    <Content Include="node_modules\d3-contour\src\density.js" />
+    <Content Include="node_modules\d3-contour\src\index.js" />
+    <Content Include="node_modules\d3-contour\src\noop.js" />
+    <Content Include="node_modules\d3-delaunay\dist\d3-delaunay.js" />
+    <Content Include="node_modules\d3-delaunay\dist\d3-delaunay.min.js" />
+    <Content Include="node_modules\d3-delaunay\src\delaunay.js" />
+    <Content Include="node_modules\d3-delaunay\src\index.js" />
+    <Content Include="node_modules\d3-delaunay\src\path.js" />
+    <Content Include="node_modules\d3-delaunay\src\polygon.js" />
+    <Content Include="node_modules\d3-delaunay\src\voronoi.js" />
+    <Content Include="node_modules\d3-dispatch\dist\d3-dispatch.js" />
+    <Content Include="node_modules\d3-dispatch\dist\d3-dispatch.min.js" />
+    <Content Include="node_modules\d3-dispatch\src\dispatch.js" />
+    <Content Include="node_modules\d3-dispatch\src\index.js" />
+    <Content Include="node_modules\d3-drag\dist\d3-drag.js" />
+    <Content Include="node_modules\d3-drag\dist\d3-drag.min.js" />
+    <Content Include="node_modules\d3-drag\src\constant.js" />
+    <Content Include="node_modules\d3-drag\src\drag.js" />
+    <Content Include="node_modules\d3-drag\src\event.js" />
+    <Content Include="node_modules\d3-drag\src\index.js" />
+    <Content Include="node_modules\d3-drag\src\nodrag.js" />
+    <Content Include="node_modules\d3-drag\src\noevent.js" />
+    <Content Include="node_modules\d3-dsv\bin\dsv2dsv.js" />
+    <Content Include="node_modules\d3-dsv\bin\dsv2json.js" />
+    <Content Include="node_modules\d3-dsv\bin\json2dsv.js" />
+    <Content Include="node_modules\d3-dsv\dist\d3-dsv.js" />
+    <Content Include="node_modules\d3-dsv\dist\d3-dsv.min.js" />
+    <Content Include="node_modules\d3-dsv\src\autoType.js" />
+    <Content Include="node_modules\d3-dsv\src\csv.js" />
+    <Content Include="node_modules\d3-dsv\src\dsv.js" />
+    <Content Include="node_modules\d3-dsv\src\index.js" />
+    <Content Include="node_modules\d3-dsv\src\tsv.js" />
+    <Content Include="node_modules\d3-ease\dist\d3-ease.js" />
+    <Content Include="node_modules\d3-ease\dist\d3-ease.min.js" />
+    <Content Include="node_modules\d3-ease\src\back.js" />
+    <Content Include="node_modules\d3-ease\src\bounce.js" />
+    <Content Include="node_modules\d3-ease\src\circle.js" />
+    <Content Include="node_modules\d3-ease\src\cubic.js" />
+    <Content Include="node_modules\d3-ease\src\elastic.js" />
+    <Content Include="node_modules\d3-ease\src\exp.js" />
+    <Content Include="node_modules\d3-ease\src\index.js" />
+    <Content Include="node_modules\d3-ease\src\linear.js" />
+    <Content Include="node_modules\d3-ease\src\math.js" />
+    <Content Include="node_modules\d3-ease\src\poly.js" />
+    <Content Include="node_modules\d3-ease\src\quad.js" />
+    <Content Include="node_modules\d3-ease\src\sin.js" />
+    <Content Include="node_modules\d3-fetch\dist\d3-fetch.js" />
+    <Content Include="node_modules\d3-fetch\dist\d3-fetch.min.js" />
+    <Content Include="node_modules\d3-fetch\src\blob.js" />
+    <Content Include="node_modules\d3-fetch\src\buffer.js" />
+    <Content Include="node_modules\d3-fetch\src\dsv.js" />
+    <Content Include="node_modules\d3-fetch\src\image.js" />
+    <Content Include="node_modules\d3-fetch\src\index.js" />
+    <Content Include="node_modules\d3-fetch\src\json.js" />
+    <Content Include="node_modules\d3-fetch\src\text.js" />
+    <Content Include="node_modules\d3-fetch\src\xml.js" />
+    <Content Include="node_modules\d3-force\dist\d3-force.js" />
+    <Content Include="node_modules\d3-force\dist\d3-force.min.js" />
+    <Content Include="node_modules\d3-force\src\center.js" />
+    <Content Include="node_modules\d3-force\src\collide.js" />
+    <Content Include="node_modules\d3-force\src\constant.js" />
+    <Content Include="node_modules\d3-force\src\index.js" />
+    <Content Include="node_modules\d3-force\src\jiggle.js" />
+    <Content Include="node_modules\d3-force\src\lcg.js" />
+    <Content Include="node_modules\d3-force\src\link.js" />
+    <Content Include="node_modules\d3-force\src\manyBody.js" />
+    <Content Include="node_modules\d3-force\src\radial.js" />
+    <Content Include="node_modules\d3-force\src\simulation.js" />
+    <Content Include="node_modules\d3-force\src\x.js" />
+    <Content Include="node_modules\d3-force\src\y.js" />
+    <Content Include="node_modules\d3-format\dist\d3-format.js" />
+    <Content Include="node_modules\d3-format\dist\d3-format.min.js" />
+    <Content Include="node_modules\d3-format\src\defaultLocale.js" />
+    <Content Include="node_modules\d3-format\src\exponent.js" />
+    <Content Include="node_modules\d3-format\src\formatDecimal.js" />
+    <Content Include="node_modules\d3-format\src\formatGroup.js" />
+    <Content Include="node_modules\d3-format\src\formatNumerals.js" />
+    <Content Include="node_modules\d3-format\src\formatPrefixAuto.js" />
+    <Content Include="node_modules\d3-format\src\formatRounded.js" />
+    <Content Include="node_modules\d3-format\src\formatSpecifier.js" />
+    <Content Include="node_modules\d3-format\src\formatTrim.js" />
+    <Content Include="node_modules\d3-format\src\formatTypes.js" />
+    <Content Include="node_modules\d3-format\src\identity.js" />
+    <Content Include="node_modules\d3-format\src\index.js" />
+    <Content Include="node_modules\d3-format\src\locale.js" />
+    <Content Include="node_modules\d3-format\src\precisionFixed.js" />
+    <Content Include="node_modules\d3-format\src\precisionPrefix.js" />
+    <Content Include="node_modules\d3-format\src\precisionRound.js" />
+    <Content Include="node_modules\d3-geo\dist\d3-geo.js" />
+    <Content Include="node_modules\d3-geo\dist\d3-geo.min.js" />
+    <Content Include="node_modules\d3-geo\src\area.js" />
+    <Content Include="node_modules\d3-geo\src\bounds.js" />
+    <Content Include="node_modules\d3-geo\src\cartesian.js" />
+    <Content Include="node_modules\d3-geo\src\centroid.js" />
+    <Content Include="node_modules\d3-geo\src\circle.js" />
+    <Content Include="node_modules\d3-geo\src\clip\antimeridian.js" />
+    <Content Include="node_modules\d3-geo\src\clip\buffer.js" />
+    <Content Include="node_modules\d3-geo\src\clip\circle.js" />
+    <Content Include="node_modules\d3-geo\src\clip\extent.js" />
+    <Content Include="node_modules\d3-geo\src\clip\index.js" />
+    <Content Include="node_modules\d3-geo\src\clip\line.js" />
+    <Content Include="node_modules\d3-geo\src\clip\rectangle.js" />
+    <Content Include="node_modules\d3-geo\src\clip\rejoin.js" />
+    <Content Include="node_modules\d3-geo\src\compose.js" />
+    <Content Include="node_modules\d3-geo\src\constant.js" />
+    <Content Include="node_modules\d3-geo\src\contains.js" />
+    <Content Include="node_modules\d3-geo\src\distance.js" />
+    <Content Include="node_modules\d3-geo\src\graticule.js" />
+    <Content Include="node_modules\d3-geo\src\identity.js" />
+    <Content Include="node_modules\d3-geo\src\index.js" />
+    <Content Include="node_modules\d3-geo\src\interpolate.js" />
+    <Content Include="node_modules\d3-geo\src\length.js" />
+    <Content Include="node_modules\d3-geo\src\math.js" />
+    <Content Include="node_modules\d3-geo\src\noop.js" />
+    <Content Include="node_modules\d3-geo\src\path\area.js" />
+    <Content Include="node_modules\d3-geo\src\path\bounds.js" />
+    <Content Include="node_modules\d3-geo\src\path\centroid.js" />
+    <Content Include="node_modules\d3-geo\src\path\context.js" />
+    <Content Include="node_modules\d3-geo\src\path\index.js" />
+    <Content Include="node_modules\d3-geo\src\path\measure.js" />
+    <Content Include="node_modules\d3-geo\src\path\string.js" />
+    <Content Include="node_modules\d3-geo\src\pointEqual.js" />
+    <Content Include="node_modules\d3-geo\src\polygonContains.js" />
+    <Content Include="node_modules\d3-geo\src\projection\albers.js" />
+    <Content Include="node_modules\d3-geo\src\projection\albersUsa.js" />
+    <Content Include="node_modules\d3-geo\src\projection\azimuthal.js" />
+    <Content Include="node_modules\d3-geo\src\projection\azimuthalEqualArea.js" />
+    <Content Include="node_modules\d3-geo\src\projection\azimuthalEquidistant.js" />
+    <Content Include="node_modules\d3-geo\src\projection\conic.js" />
+    <Content Include="node_modules\d3-geo\src\projection\conicConformal.js" />
+    <Content Include="node_modules\d3-geo\src\projection\conicEqualArea.js" />
+    <Content Include="node_modules\d3-geo\src\projection\conicEquidistant.js" />
+    <Content Include="node_modules\d3-geo\src\projection\cylindricalEqualArea.js" />
+    <Content Include="node_modules\d3-geo\src\projection\equalEarth.js" />
+    <Content Include="node_modules\d3-geo\src\projection\equirectangular.js" />
+    <Content Include="node_modules\d3-geo\src\projection\fit.js" />
+    <Content Include="node_modules\d3-geo\src\projection\gnomonic.js" />
+    <Content Include="node_modules\d3-geo\src\projection\identity.js" />
+    <Content Include="node_modules\d3-geo\src\projection\index.js" />
+    <Content Include="node_modules\d3-geo\src\projection\mercator.js" />
+    <Content Include="node_modules\d3-geo\src\projection\naturalEarth1.js" />
+    <Content Include="node_modules\d3-geo\src\projection\orthographic.js" />
+    <Content Include="node_modules\d3-geo\src\projection\resample.js" />
+    <Content Include="node_modules\d3-geo\src\projection\stereographic.js" />
+    <Content Include="node_modules\d3-geo\src\projection\transverseMercator.js" />
+    <Content Include="node_modules\d3-geo\src\rotation.js" />
+    <Content Include="node_modules\d3-geo\src\stream.js" />
+    <Content Include="node_modules\d3-geo\src\transform.js" />
+    <Content Include="node_modules\d3-hierarchy\dist\d3-hierarchy.js" />
+    <Content Include="node_modules\d3-hierarchy\dist\d3-hierarchy.min.js" />
+    <Content Include="node_modules\d3-hierarchy\src\accessors.js" />
+    <Content Include="node_modules\d3-hierarchy\src\array.js" />
+    <Content Include="node_modules\d3-hierarchy\src\cluster.js" />
+    <Content Include="node_modules\d3-hierarchy\src\constant.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\ancestors.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\count.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\descendants.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\each.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\eachAfter.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\eachBefore.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\find.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\index.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\iterator.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\leaves.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\links.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\path.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\sort.js" />
+    <Content Include="node_modules\d3-hierarchy\src\hierarchy\sum.js" />
+    <Content Include="node_modules\d3-hierarchy\src\index.js" />
+    <Content Include="node_modules\d3-hierarchy\src\lcg.js" />
+    <Content Include="node_modules\d3-hierarchy\src\pack\enclose.js" />
+    <Content Include="node_modules\d3-hierarchy\src\pack\index.js" />
+    <Content Include="node_modules\d3-hierarchy\src\pack\siblings.js" />
+    <Content Include="node_modules\d3-hierarchy\src\partition.js" />
+    <Content Include="node_modules\d3-hierarchy\src\stratify.js" />
+    <Content Include="node_modules\d3-hierarchy\src\tree.js" />
+    <Content Include="node_modules\d3-hierarchy\src\treemap\binary.js" />
+    <Content Include="node_modules\d3-hierarchy\src\treemap\dice.js" />
+    <Content Include="node_modules\d3-hierarchy\src\treemap\index.js" />
+    <Content Include="node_modules\d3-hierarchy\src\treemap\resquarify.js" />
+    <Content Include="node_modules\d3-hierarchy\src\treemap\round.js" />
+    <Content Include="node_modules\d3-hierarchy\src\treemap\slice.js" />
+    <Content Include="node_modules\d3-hierarchy\src\treemap\sliceDice.js" />
+    <Content Include="node_modules\d3-hierarchy\src\treemap\squarify.js" />
+    <Content Include="node_modules\d3-interpolate\dist\d3-interpolate.js" />
+    <Content Include="node_modules\d3-interpolate\dist\d3-interpolate.min.js" />
+    <Content Include="node_modules\d3-interpolate\src\array.js" />
+    <Content Include="node_modules\d3-interpolate\src\basis.js" />
+    <Content Include="node_modules\d3-interpolate\src\basisClosed.js" />
+    <Content Include="node_modules\d3-interpolate\src\color.js" />
+    <Content Include="node_modules\d3-interpolate\src\constant.js" />
+    <Content Include="node_modules\d3-interpolate\src\cubehelix.js" />
+    <Content Include="node_modules\d3-interpolate\src\date.js" />
+    <Content Include="node_modules\d3-interpolate\src\discrete.js" />
+    <Content Include="node_modules\d3-interpolate\src\hcl.js" />
+    <Content Include="node_modules\d3-interpolate\src\hsl.js" />
+    <Content Include="node_modules\d3-interpolate\src\hue.js" />
+    <Content Include="node_modules\d3-interpolate\src\index.js" />
+    <Content Include="node_modules\d3-interpolate\src\lab.js" />
+    <Content Include="node_modules\d3-interpolate\src\number.js" />
+    <Content Include="node_modules\d3-interpolate\src\numberArray.js" />
+    <Content Include="node_modules\d3-interpolate\src\object.js" />
+    <Content Include="node_modules\d3-interpolate\src\piecewise.js" />
+    <Content Include="node_modules\d3-interpolate\src\quantize.js" />
+    <Content Include="node_modules\d3-interpolate\src\rgb.js" />
+    <Content Include="node_modules\d3-interpolate\src\round.js" />
+    <Content Include="node_modules\d3-interpolate\src\string.js" />
+    <Content Include="node_modules\d3-interpolate\src\transform\decompose.js" />
+    <Content Include="node_modules\d3-interpolate\src\transform\index.js" />
+    <Content Include="node_modules\d3-interpolate\src\transform\parse.js" />
+    <Content Include="node_modules\d3-interpolate\src\value.js" />
+    <Content Include="node_modules\d3-interpolate\src\zoom.js" />
+    <Content Include="node_modules\d3-path\dist\d3-path.js" />
+    <Content Include="node_modules\d3-path\dist\d3-path.min.js" />
+    <Content Include="node_modules\d3-path\src\index.js" />
+    <Content Include="node_modules\d3-path\src\path.js" />
+    <Content Include="node_modules\d3-polygon\dist\d3-polygon.js" />
+    <Content Include="node_modules\d3-polygon\dist\d3-polygon.min.js" />
+    <Content Include="node_modules\d3-polygon\src\area.js" />
+    <Content Include="node_modules\d3-polygon\src\centroid.js" />
+    <Content Include="node_modules\d3-polygon\src\contains.js" />
+    <Content Include="node_modules\d3-polygon\src\cross.js" />
+    <Content Include="node_modules\d3-polygon\src\hull.js" />
+    <Content Include="node_modules\d3-polygon\src\index.js" />
+    <Content Include="node_modules\d3-polygon\src\length.js" />
+    <Content Include="node_modules\d3-quadtree\dist\d3-quadtree.js" />
+    <Content Include="node_modules\d3-quadtree\dist\d3-quadtree.min.js" />
+    <Content Include="node_modules\d3-quadtree\src\add.js" />
+    <Content Include="node_modules\d3-quadtree\src\cover.js" />
+    <Content Include="node_modules\d3-quadtree\src\data.js" />
+    <Content Include="node_modules\d3-quadtree\src\extent.js" />
+    <Content Include="node_modules\d3-quadtree\src\find.js" />
+    <Content Include="node_modules\d3-quadtree\src\index.js" />
+    <Content Include="node_modules\d3-quadtree\src\quad.js" />
+    <Content Include="node_modules\d3-quadtree\src\quadtree.js" />
+    <Content Include="node_modules\d3-quadtree\src\remove.js" />
+    <Content Include="node_modules\d3-quadtree\src\root.js" />
+    <Content Include="node_modules\d3-quadtree\src\size.js" />
+    <Content Include="node_modules\d3-quadtree\src\visit.js" />
+    <Content Include="node_modules\d3-quadtree\src\visitAfter.js" />
+    <Content Include="node_modules\d3-quadtree\src\x.js" />
+    <Content Include="node_modules\d3-quadtree\src\y.js" />
+    <Content Include="node_modules\d3-random\dist\d3-random.js" />
+    <Content Include="node_modules\d3-random\dist\d3-random.min.js" />
+    <Content Include="node_modules\d3-random\src\bates.js" />
+    <Content Include="node_modules\d3-random\src\bernoulli.js" />
+    <Content Include="node_modules\d3-random\src\beta.js" />
+    <Content Include="node_modules\d3-random\src\binomial.js" />
+    <Content Include="node_modules\d3-random\src\cauchy.js" />
+    <Content Include="node_modules\d3-random\src\defaultSource.js" />
+    <Content Include="node_modules\d3-random\src\exponential.js" />
+    <Content Include="node_modules\d3-random\src\gamma.js" />
+    <Content Include="node_modules\d3-random\src\geometric.js" />
+    <Content Include="node_modules\d3-random\src\index.js" />
+    <Content Include="node_modules\d3-random\src\int.js" />
+    <Content Include="node_modules\d3-random\src\irwinHall.js" />
+    <Content Include="node_modules\d3-random\src\lcg.js" />
+    <Content Include="node_modules\d3-random\src\logistic.js" />
+    <Content Include="node_modules\d3-random\src\logNormal.js" />
+    <Content Include="node_modules\d3-random\src\normal.js" />
+    <Content Include="node_modules\d3-random\src\pareto.js" />
+    <Content Include="node_modules\d3-random\src\poisson.js" />
+    <Content Include="node_modules\d3-random\src\uniform.js" />
+    <Content Include="node_modules\d3-random\src\weibull.js" />
+    <Content Include="node_modules\d3-scale-chromatic\dist\d3-scale-chromatic.js" />
+    <Content Include="node_modules\d3-scale-chromatic\dist\d3-scale-chromatic.min.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\categorical\Accent.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\categorical\category10.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\categorical\Dark2.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\categorical\Paired.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\categorical\Pastel1.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\categorical\Pastel2.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\categorical\Set1.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\categorical\Set2.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\categorical\Set3.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\categorical\Tableau10.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\colors.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\diverging\BrBG.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\diverging\PiYG.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\diverging\PRGn.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\diverging\PuOr.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\diverging\RdBu.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\diverging\RdGy.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\diverging\RdYlBu.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\diverging\RdYlGn.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\diverging\Spectral.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\index.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\ramp.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\rampClosed.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\BuGn.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\BuPu.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\cividis.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\cubehelix.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\GnBu.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\OrRd.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\PuBu.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\PuBuGn.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\PuRd.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\rainbow.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\RdPu.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\sinebow.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\turbo.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\viridis.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\YlGn.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\YlGnBu.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\YlOrBr.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-multi\YlOrRd.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-single\Blues.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-single\Greens.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-single\Greys.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-single\Oranges.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-single\Purples.js" />
+    <Content Include="node_modules\d3-scale-chromatic\src\sequential-single\Reds.js" />
+    <Content Include="node_modules\d3-scale\dist\d3-scale.js" />
+    <Content Include="node_modules\d3-scale\dist\d3-scale.min.js" />
+    <Content Include="node_modules\d3-scale\src\band.js" />
+    <Content Include="node_modules\d3-scale\src\colors.js" />
+    <Content Include="node_modules\d3-scale\src\constant.js" />
+    <Content Include="node_modules\d3-scale\src\continuous.js" />
+    <Content Include="node_modules\d3-scale\src\diverging.js" />
+    <Content Include="node_modules\d3-scale\src\identity.js" />
+    <Content Include="node_modules\d3-scale\src\index.js" />
+    <Content Include="node_modules\d3-scale\src\init.js" />
+    <Content Include="node_modules\d3-scale\src\linear.js" />
+    <Content Include="node_modules\d3-scale\src\log.js" />
+    <Content Include="node_modules\d3-scale\src\nice.js" />
+    <Content Include="node_modules\d3-scale\src\number.js" />
+    <Content Include="node_modules\d3-scale\src\ordinal.js" />
+    <Content Include="node_modules\d3-scale\src\pow.js" />
+    <Content Include="node_modules\d3-scale\src\quantile.js" />
+    <Content Include="node_modules\d3-scale\src\quantize.js" />
+    <Content Include="node_modules\d3-scale\src\radial.js" />
+    <Content Include="node_modules\d3-scale\src\sequential.js" />
+    <Content Include="node_modules\d3-scale\src\sequentialQuantile.js" />
+    <Content Include="node_modules\d3-scale\src\symlog.js" />
+    <Content Include="node_modules\d3-scale\src\threshold.js" />
+    <Content Include="node_modules\d3-scale\src\tickFormat.js" />
+    <Content Include="node_modules\d3-scale\src\time.js" />
+    <Content Include="node_modules\d3-scale\src\utcTime.js" />
+    <Content Include="node_modules\d3-selection\dist\d3-selection.js" />
+    <Content Include="node_modules\d3-selection\dist\d3-selection.min.js" />
+    <Content Include="node_modules\d3-selection\src\array.js" />
+    <Content Include="node_modules\d3-selection\src\constant.js" />
+    <Content Include="node_modules\d3-selection\src\create.js" />
+    <Content Include="node_modules\d3-selection\src\creator.js" />
+    <Content Include="node_modules\d3-selection\src\identity.js" />
+    <Content Include="node_modules\d3-selection\src\index.js" />
+    <Content Include="node_modules\d3-selection\src\local.js" />
+    <Content Include="node_modules\d3-selection\src\matcher.js" />
+    <Content Include="node_modules\d3-selection\src\namespace.js" />
+    <Content Include="node_modules\d3-selection\src\namespaces.js" />
+    <Content Include="node_modules\d3-selection\src\pointer.js" />
+    <Content Include="node_modules\d3-selection\src\pointers.js" />
+    <Content Include="node_modules\d3-selection\src\select.js" />
+    <Content Include="node_modules\d3-selection\src\selectAll.js" />
+    <Content Include="node_modules\d3-selection\src\selection\append.js" />
+    <Content Include="node_modules\d3-selection\src\selection\attr.js" />
+    <Content Include="node_modules\d3-selection\src\selection\call.js" />
+    <Content Include="node_modules\d3-selection\src\selection\classed.js" />
+    <Content Include="node_modules\d3-selection\src\selection\clone.js" />
+    <Content Include="node_modules\d3-selection\src\selection\data.js" />
+    <Content Include="node_modules\d3-selection\src\selection\datum.js" />
+    <Content Include="node_modules\d3-selection\src\selection\dispatch.js" />
+    <Content Include="node_modules\d3-selection\src\selection\each.js" />
+    <Content Include="node_modules\d3-selection\src\selection\empty.js" />
+    <Content Include="node_modules\d3-selection\src\selection\enter.js" />
+    <Content Include="node_modules\d3-selection\src\selection\exit.js" />
+    <Content Include="node_modules\d3-selection\src\selection\filter.js" />
+    <Content Include="node_modules\d3-selection\src\selection\html.js" />
+    <Content Include="node_modules\d3-selection\src\selection\index.js" />
+    <Content Include="node_modules\d3-selection\src\selection\insert.js" />
+    <Content Include="node_modules\d3-selection\src\selection\iterator.js" />
+    <Content Include="node_modules\d3-selection\src\selection\join.js" />
+    <Content Include="node_modules\d3-selection\src\selection\lower.js" />
+    <Content Include="node_modules\d3-selection\src\selection\merge.js" />
+    <Content Include="node_modules\d3-selection\src\selection\node.js" />
+    <Content Include="node_modules\d3-selection\src\selection\nodes.js" />
+    <Content Include="node_modules\d3-selection\src\selection\on.js" />
+    <Content Include="node_modules\d3-selection\src\selection\order.js" />
+    <Content Include="node_modules\d3-selection\src\selection\property.js" />
+    <Content Include="node_modules\d3-selection\src\selection\raise.js" />
+    <Content Include="node_modules\d3-selection\src\selection\remove.js" />
+    <Content Include="node_modules\d3-selection\src\selection\select.js" />
+    <Content Include="node_modules\d3-selection\src\selection\selectAll.js" />
+    <Content Include="node_modules\d3-selection\src\selection\selectChild.js" />
+    <Content Include="node_modules\d3-selection\src\selection\selectChildren.js" />
+    <Content Include="node_modules\d3-selection\src\selection\size.js" />
+    <Content Include="node_modules\d3-selection\src\selection\sort.js" />
+    <Content Include="node_modules\d3-selection\src\selection\sparse.js" />
+    <Content Include="node_modules\d3-selection\src\selection\style.js" />
+    <Content Include="node_modules\d3-selection\src\selection\text.js" />
+    <Content Include="node_modules\d3-selection\src\selector.js" />
+    <Content Include="node_modules\d3-selection\src\selectorAll.js" />
+    <Content Include="node_modules\d3-selection\src\sourceEvent.js" />
+    <Content Include="node_modules\d3-selection\src\window.js" />
+    <Content Include="node_modules\d3-shape\dist\d3-shape.js" />
+    <Content Include="node_modules\d3-shape\dist\d3-shape.min.js" />
+    <Content Include="node_modules\d3-shape\src\arc.js" />
+    <Content Include="node_modules\d3-shape\src\area.js" />
+    <Content Include="node_modules\d3-shape\src\areaRadial.js" />
+    <Content Include="node_modules\d3-shape\src\array.js" />
+    <Content Include="node_modules\d3-shape\src\constant.js" />
+    <Content Include="node_modules\d3-shape\src\curve\basis.js" />
+    <Content Include="node_modules\d3-shape\src\curve\basisClosed.js" />
+    <Content Include="node_modules\d3-shape\src\curve\basisOpen.js" />
+    <Content Include="node_modules\d3-shape\src\curve\bump.js" />
+    <Content Include="node_modules\d3-shape\src\curve\bundle.js" />
+    <Content Include="node_modules\d3-shape\src\curve\cardinal.js" />
+    <Content Include="node_modules\d3-shape\src\curve\cardinalClosed.js" />
+    <Content Include="node_modules\d3-shape\src\curve\cardinalOpen.js" />
+    <Content Include="node_modules\d3-shape\src\curve\catmullRom.js" />
+    <Content Include="node_modules\d3-shape\src\curve\catmullRomClosed.js" />
+    <Content Include="node_modules\d3-shape\src\curve\catmullRomOpen.js" />
+    <Content Include="node_modules\d3-shape\src\curve\linear.js" />
+    <Content Include="node_modules\d3-shape\src\curve\linearClosed.js" />
+    <Content Include="node_modules\d3-shape\src\curve\monotone.js" />
+    <Content Include="node_modules\d3-shape\src\curve\natural.js" />
+    <Content Include="node_modules\d3-shape\src\curve\radial.js" />
+    <Content Include="node_modules\d3-shape\src\curve\step.js" />
+    <Content Include="node_modules\d3-shape\src\descending.js" />
+    <Content Include="node_modules\d3-shape\src\identity.js" />
+    <Content Include="node_modules\d3-shape\src\index.js" />
+    <Content Include="node_modules\d3-shape\src\line.js" />
+    <Content Include="node_modules\d3-shape\src\lineRadial.js" />
+    <Content Include="node_modules\d3-shape\src\link.js" />
+    <Content Include="node_modules\d3-shape\src\math.js" />
+    <Content Include="node_modules\d3-shape\src\noop.js" />
+    <Content Include="node_modules\d3-shape\src\offset\diverging.js" />
+    <Content Include="node_modules\d3-shape\src\offset\expand.js" />
+    <Content Include="node_modules\d3-shape\src\offset\none.js" />
+    <Content Include="node_modules\d3-shape\src\offset\silhouette.js" />
+    <Content Include="node_modules\d3-shape\src\offset\wiggle.js" />
+    <Content Include="node_modules\d3-shape\src\order\appearance.js" />
+    <Content Include="node_modules\d3-shape\src\order\ascending.js" />
+    <Content Include="node_modules\d3-shape\src\order\descending.js" />
+    <Content Include="node_modules\d3-shape\src\order\insideOut.js" />
+    <Content Include="node_modules\d3-shape\src\order\none.js" />
+    <Content Include="node_modules\d3-shape\src\order\reverse.js" />
+    <Content Include="node_modules\d3-shape\src\path.js" />
+    <Content Include="node_modules\d3-shape\src\pie.js" />
+    <Content Include="node_modules\d3-shape\src\point.js" />
+    <Content Include="node_modules\d3-shape\src\pointRadial.js" />
+    <Content Include="node_modules\d3-shape\src\stack.js" />
+    <Content Include="node_modules\d3-shape\src\symbol.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\asterisk.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\circle.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\cross.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\diamond.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\diamond2.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\plus.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\square.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\square2.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\star.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\times.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\triangle.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\triangle2.js" />
+    <Content Include="node_modules\d3-shape\src\symbol\wye.js" />
+    <Content Include="node_modules\d3-time-format\dist\d3-time-format.js" />
+    <Content Include="node_modules\d3-time-format\dist\d3-time-format.min.js" />
+    <Content Include="node_modules\d3-time-format\src\defaultLocale.js" />
+    <Content Include="node_modules\d3-time-format\src\index.js" />
+    <Content Include="node_modules\d3-time-format\src\isoFormat.js" />
+    <Content Include="node_modules\d3-time-format\src\isoParse.js" />
+    <Content Include="node_modules\d3-time-format\src\locale.js" />
+    <Content Include="node_modules\d3-timer\dist\d3-timer.js" />
+    <Content Include="node_modules\d3-timer\dist\d3-timer.min.js" />
+    <Content Include="node_modules\d3-timer\src\index.js" />
+    <Content Include="node_modules\d3-timer\src\interval.js" />
+    <Content Include="node_modules\d3-timer\src\timeout.js" />
+    <Content Include="node_modules\d3-timer\src\timer.js" />
+    <Content Include="node_modules\d3-time\dist\d3-time.js" />
+    <Content Include="node_modules\d3-time\dist\d3-time.min.js" />
+    <Content Include="node_modules\d3-time\src\day.js" />
+    <Content Include="node_modules\d3-time\src\duration.js" />
+    <Content Include="node_modules\d3-time\src\hour.js" />
+    <Content Include="node_modules\d3-time\src\index.js" />
+    <Content Include="node_modules\d3-time\src\interval.js" />
+    <Content Include="node_modules\d3-time\src\millisecond.js" />
+    <Content Include="node_modules\d3-time\src\minute.js" />
+    <Content Include="node_modules\d3-time\src\month.js" />
+    <Content Include="node_modules\d3-time\src\second.js" />
+    <Content Include="node_modules\d3-time\src\ticks.js" />
+    <Content Include="node_modules\d3-time\src\week.js" />
+    <Content Include="node_modules\d3-time\src\year.js" />
+    <Content Include="node_modules\d3-transition\dist\d3-transition.js" />
+    <Content Include="node_modules\d3-transition\dist\d3-transition.min.js" />
+    <Content Include="node_modules\d3-transition\src\active.js" />
+    <Content Include="node_modules\d3-transition\src\index.js" />
+    <Content Include="node_modules\d3-transition\src\interrupt.js" />
+    <Content Include="node_modules\d3-transition\src\selection\index.js" />
+    <Content Include="node_modules\d3-transition\src\selection\interrupt.js" />
+    <Content Include="node_modules\d3-transition\src\selection\transition.js" />
+    <Content Include="node_modules\d3-transition\src\transition\attr.js" />
+    <Content Include="node_modules\d3-transition\src\transition\attrTween.js" />
+    <Content Include="node_modules\d3-transition\src\transition\delay.js" />
+    <Content Include="node_modules\d3-transition\src\transition\duration.js" />
+    <Content Include="node_modules\d3-transition\src\transition\ease.js" />
+    <Content Include="node_modules\d3-transition\src\transition\easeVarying.js" />
+    <Content Include="node_modules\d3-transition\src\transition\end.js" />
+    <Content Include="node_modules\d3-transition\src\transition\filter.js" />
+    <Content Include="node_modules\d3-transition\src\transition\index.js" />
+    <Content Include="node_modules\d3-transition\src\transition\interpolate.js" />
+    <Content Include="node_modules\d3-transition\src\transition\merge.js" />
+    <Content Include="node_modules\d3-transition\src\transition\on.js" />
+    <Content Include="node_modules\d3-transition\src\transition\remove.js" />
+    <Content Include="node_modules\d3-transition\src\transition\schedule.js" />
+    <Content Include="node_modules\d3-transition\src\transition\select.js" />
+    <Content Include="node_modules\d3-transition\src\transition\selectAll.js" />
+    <Content Include="node_modules\d3-transition\src\transition\selection.js" />
+    <Content Include="node_modules\d3-transition\src\transition\style.js" />
+    <Content Include="node_modules\d3-transition\src\transition\styleTween.js" />
+    <Content Include="node_modules\d3-transition\src\transition\text.js" />
+    <Content Include="node_modules\d3-transition\src\transition\textTween.js" />
+    <Content Include="node_modules\d3-transition\src\transition\transition.js" />
+    <Content Include="node_modules\d3-transition\src\transition\tween.js" />
+    <Content Include="node_modules\d3-zoom\dist\d3-zoom.js" />
+    <Content Include="node_modules\d3-zoom\dist\d3-zoom.min.js" />
+    <Content Include="node_modules\d3-zoom\src\constant.js" />
+    <Content Include="node_modules\d3-zoom\src\event.js" />
+    <Content Include="node_modules\d3-zoom\src\index.js" />
+    <Content Include="node_modules\d3-zoom\src\noevent.js" />
+    <Content Include="node_modules\d3-zoom\src\transform.js" />
+    <Content Include="node_modules\d3-zoom\src\zoom.js" />
+    <Content Include="node_modules\d3\dist\d3.js" />
+    <Content Include="node_modules\d3\dist\d3.min.js" />
+    <Content Include="node_modules\d3\src\index.js" />
+    <Content Include="node_modules\delaunator\delaunator.js" />
+    <Content Include="node_modules\delaunator\delaunator.min.js" />
+    <Content Include="node_modules\delaunator\index.js" />
+    <Content Include="node_modules\iconv-lite\encodings\dbcs-codec.js" />
+    <Content Include="node_modules\iconv-lite\encodings\dbcs-data.js" />
+    <Content Include="node_modules\iconv-lite\encodings\index.js" />
+    <Content Include="node_modules\iconv-lite\encodings\internal.js" />
+    <Content Include="node_modules\iconv-lite\encodings\sbcs-codec.js" />
+    <Content Include="node_modules\iconv-lite\encodings\sbcs-data-generated.js" />
+    <Content Include="node_modules\iconv-lite\encodings\sbcs-data.js" />
+    <Content Include="node_modules\iconv-lite\encodings\utf16.js" />
+    <Content Include="node_modules\iconv-lite\encodings\utf32.js" />
+    <Content Include="node_modules\iconv-lite\encodings\utf7.js" />
+    <Content Include="node_modules\iconv-lite\lib\bom-handling.js" />
+    <Content Include="node_modules\iconv-lite\lib\index.js" />
+    <Content Include="node_modules\iconv-lite\lib\streams.js" />
+    <Content Include="node_modules\internmap\dist\internmap.js" />
+    <Content Include="node_modules\internmap\dist\internmap.min.js" />
+    <Content Include="node_modules\internmap\src\index.js" />
+    <Content Include="node_modules\robust-predicates\esm\incircle.js" />
+    <Content Include="node_modules\robust-predicates\esm\insphere.js" />
+    <Content Include="node_modules\robust-predicates\esm\orient2d.js" />
+    <Content Include="node_modules\robust-predicates\esm\orient3d.js" />
+    <Content Include="node_modules\robust-predicates\esm\util.js" />
+    <Content Include="node_modules\robust-predicates\index.js" />
+    <Content Include="node_modules\robust-predicates\umd\incircle.js" />
+    <Content Include="node_modules\robust-predicates\umd\incircle.min.js" />
+    <Content Include="node_modules\robust-predicates\umd\insphere.js" />
+    <Content Include="node_modules\robust-predicates\umd\insphere.min.js" />
+    <Content Include="node_modules\robust-predicates\umd\orient2d.js" />
+    <Content Include="node_modules\robust-predicates\umd\orient2d.min.js" />
+    <Content Include="node_modules\robust-predicates\umd\orient3d.js" />
+    <Content Include="node_modules\robust-predicates\umd\orient3d.min.js" />
+    <Content Include="node_modules\robust-predicates\umd\predicates.js" />
+    <Content Include="node_modules\robust-predicates\umd\predicates.min.js" />
+    <Content Include="node_modules\rw\index.js" />
+    <Content Include="node_modules\rw\lib\rw\dash.js" />
+    <Content Include="node_modules\rw\lib\rw\decode.js" />
+    <Content Include="node_modules\rw\lib\rw\encode.js" />
+    <Content Include="node_modules\rw\lib\rw\read-file-sync.js" />
+    <Content Include="node_modules\rw\lib\rw\read-file.js" />
+    <Content Include="node_modules\rw\lib\rw\write-file-sync.js" />
+    <Content Include="node_modules\rw\lib\rw\write-file.js" />
+    <Resource Include="node_modules\rw\test\utf8.txt" />
+    <Content Include="node_modules\safer-buffer\dangerous.js" />
+    <Content Include="node_modules\safer-buffer\safer.js" />
+    <Content Include="node_modules\safer-buffer\tests.js" />
+    <Content Include="winds.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="三维图-imagesurface.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="node_modules\commander\typings\index.d.ts" />
+    <TypeScriptCompile Include="node_modules\iconv-lite\lib\index.d.ts" />
+    <TypeScriptCompile Include="node_modules\robust-predicates\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\ARM64\Release\" />
+    <Folder Include="bin\Debug\bin\Debug\outcsv\" />
+    <Folder Include="bin\Debug\locales\" />
+    <Folder Include="bin\Debug\outxlsx\" />
+    <Folder Include="bin\Release\" />
+    <Folder Include="bin\x64\Release\" />
+    <Folder Include="outcsv\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Fody.6.5.2\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Fody.6.5.2\build\Fody.targets'))" />
+    <Error Condition="!Exists('packages\Costura.Fody.5.3.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.5.3.0\build\Costura.Fody.props'))" />
+    <Error Condition="!Exists('packages\Costura.Fody.5.3.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.5.3.0\build\Costura.Fody.targets'))" />
+    <Error Condition="!Exists('packages\cef.redist.x64.116.0.15\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x64.116.0.15\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('packages\cef.redist.x86.116.0.15\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x86.116.0.15\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('packages\CefSharp.Common.116.0.150\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.116.0.150\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('packages\CefSharp.Common.116.0.150\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.116.0.150\build\CefSharp.Common.targets'))" />
+  </Target>
+  <Import Project="packages\Fody.6.5.2\build\Fody.targets" Condition="Exists('packages\Fody.6.5.2\build\Fody.targets')" />
+  <Import Project="packages\Costura.Fody.5.3.0\build\Costura.Fody.targets" Condition="Exists('packages\Costura.Fody.5.3.0\build\Costura.Fody.targets')" />
+  <Import Project="packages\CefSharp.Common.116.0.150\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.116.0.150\build\CefSharp.Common.targets')" />
+</Project>

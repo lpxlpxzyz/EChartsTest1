@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="echarts.js"></script>
+    <script src="echarts-gl.js"></script>
+    <script src="baiduditu.js"></script>
+    <script src="bmap.js"></script>
+    <script src="node_modules\d3\dist\d3.js"></script>
+    <script src="winds.js"></script> 
+  </head>
+
+  <body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 2000px; height: 1000px">111</div>
+
+    <script>
+      //var ROOT_PATH = "CJMN0902";
+
+      var chartDom = document.getElementById("main");
+      var myChart = echarts.init(chartDom);
+     
+      // var winds = windData
+      //d3.json("winds.json").then(function (windData) {
+        var data = [];
+        var p = 0;
+        var maxMag = 0;
+        var minMag = Infinity;
+        for (var j = 0; j < windData.ny; j++) {
+          for (var i = 0; i <= windData.nx; i++) {
+            // Continuous data.
+            var p = (i % windData.nx) + j * windData.nx;
+            var vx = windData.data[p][0];//风力值
+            var vy = windData.data[p][1];
+            var mag = Math.sqrt(vx * vx + vy * vy);
+            // 数据是一个一维数组
+            // [ [经度, 维度，向量经度方向的值，向量维度方向的值] ]
+            data.push([
+              (i / windData.nx) * 360 - 180,
+              (j / windData.ny) * 180 - 90,
+              vx,
+              vy,
+              mag,
+            ]);
+            maxMag = Math.max(mag, maxMag);//最值
+            minMag = Math.min(mag, minMag);
+          }
+        }
+        console.log(data);
+        var option = {
+            backgroundColor: "#001122",
+            visualMap: {
+              left: "right",
+              min: minMag,
+              max: maxMag,
+              dimension: 4,//指定用数据的『哪个维度』，映射到视觉元素上。『数据』即 series.data。 可以把 series.data 理解成一个四维数组,其中每个列是一个维度,默认取 data 中最后一个维度
+              inRange: {
+                // color: ['green', 'yellow', 'red']
+                color: [
+                  "#313695",
+                  "#4575b4",
+                  "#74add1",
+                  "#abd9e9",
+                  "#e0f3f8",
+                  "#ffffbf",
+                  "#fee090",
+                  "#fdae61",
+                  "#f46d43",
+                  "#d73027",
+                  "#a50026",
+                ],
+              },
+              realtime: false,
+              calculable: true,
+              textStyle: {
+                color: "#fff",
+              },
+            },
+            //对百度地图进行配置
+            bmap: {
+              center: [0, 0],
+              zoom: 1,
+              roam: true,
+              mapStyle: {
+                styleJson: [
+                  {
+                    featureType: "water",
+                    elementType: "all",
+                    stylers: {
+                      color: "#031628",
+                    },
+                  },
+                  {
+                    featureType: "land",
+                    elementType: "geometry",
+                    stylers: {
+                      color: "#000102",
+                    },
+                  },
+                  {
+                    featureType: "highway",
+                    elementType: "all",
+                    stylers: {
+                      visibility: "off",
+                    },
+                  },
+                  {
+                    featureType: "arterial",
+                    elementType: "geometry.fill",
+                    stylers: {
+                      color: "#000000",
+                    },
+                  },
+                  {
+                    featureType: "arterial",
+                    elementType: "geometry.stroke",
+                    stylers: {
+                      color: "#0b3d51",
+                    },
+                  },
+                  {
+                    featureType: "local",
+                    elementType: "geometry",
+                    stylers: {
+                      color: "#000000",
+                    },
+                  },
+                  {
+                    featureType: "railway",
+                    elementType: "geometry.fill",
+                    stylers: {
+                      color: "#000000",
+                    },
+                  },
+                  {
+                    featureType: "railway",
+                    elementType: "geometry.stroke",
+                    stylers: {
+                      color: "#08304b",
+                    },
+                  },
+                  {
+                    featureType: "subway",
+                    elementType: "geometry",
+                    stylers: {
+                      lightness: -70,
+                    },
+                  },
+                  {
+                    featureType: "building",
+                    elementType: "geometry.fill",
+                    stylers: {
+                      color: "#000000",
+                    },
+                  },
+                  {
+                    featureType: "all",
+                    elementType: "labels.text.fill",
+                    stylers: {
+                      color: "#857f7f",
+                    },
+                  },
+                  {
+                    featureType: "all",
+                    elementType: "labels.text.stroke",
+                    stylers: {
+                      color: "#000000",
+                    },
+                  },
+                  {
+                    featureType: "building",
+                    elementType: "geometry",
+                    stylers: {
+                      color: "#022338",
+                    },
+                  },
+                  {
+                    featureType: "green",
+                    elementType: "geometry",
+                    stylers: {
+                      color: "#062032",
+                    },
+                  },
+                  {
+                    featureType: "boundary",
+                    elementType: "all",
+                    stylers: {
+                      color: "#465b6c",
+                    },
+                  },
+                  {
+                    featureType: "manmade",
+                    elementType: "all",
+                    stylers: {
+                      color: "#022338",
+                    },
+                  },
+                  {
+                    featureType: "label",
+                    elementType: "all",
+                    stylers: {
+                      visibility: "off",
+                    },
+                  },
+                ],
+              },
+            },
+            series: [
+              {
+                type: "flowGL",
+                coordinateSystem: "bmap",
+                data: data,
+                supersampling: 4,
+                particleType: "line",
+                particleDensity: 128,
+                particleSpeed: 1,
+                // gridWidth: windData.nx,
+                // gridHeight: windData.ny,
+                itemStyle: {
+                  opacity: 0.7,
+                },
+              },
+            ],
+          };
+
+        //   option && myChart.setOption(option);
+        myChart.setOption(option)
+      //});
+    </script>
+  </body>
+</html>

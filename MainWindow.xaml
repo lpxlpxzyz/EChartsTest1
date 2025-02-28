@@ -1,0 +1,856 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EChartsTest"
+        xmlns:Cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="EChartsTest.MainWindow"
+        xmlns:AduSkin="clr-namespace:AduSkin.Controls.Metro;assembly=AduSkin" 
+        mc:Ignorable="d"
+        Title="沉积数值模拟软件" Height="800" Width="1100" 
+        
+        MinWidth="1100" MaxWidth="1100"   
+        
+        MinHeight="800" MaxHeight="800" 
+        >
+
+
+    <Window.Resources>
+        <Style x:Key="ContentStyle"  
+        TargetType="{x:Type TextBlock}">
+            <Setter Property="HorizontalAlignment"  
+             Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- 菜单栏行 -->
+            <RowDefinition Height="Auto" />
+            <!-- 内容行 -->
+            <RowDefinition Height="Auto" />
+            <!-- 工具栏行 -->
+            <RowDefinition Height="Auto" />
+            <!-- 状态栏行 -->
+
+        </Grid.RowDefinitions>
+
+        <!-- 菜单栏 -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="项目" FontSize="16">
+                <MenuItem Header="新建" FontSize="12" Click="CreateProject"/>
+                <MenuItem Header="打开" FontSize="12" Click="OpenProject" />
+                <MenuItem Header="保存" FontSize="12" Click="SaveProject"/>
+                <MenuItem Header="另存" FontSize="12" />
+                <MenuItem Header="关闭" FontSize="12"  Click="CloseProject" />
+                <MenuItem Header="选项" FontSize="12" />
+
+            </MenuItem>
+            <MenuItem Header="数据" FontSize="16">
+                <MenuItem Header="导入" FontSize="12">
+                    <MenuItem Header="地层数据" FontSize="12"/>
+                    <MenuItem Header="沉降数据" FontSize="12"/>
+                    <MenuItem Header="地形数据" FontSize="12"/>
+                    <MenuItem Header="其它" FontSize="12"/>
+                </MenuItem>
+                <MenuItem Header="数据表查看" FontSize="12"/>
+            </MenuItem>
+            <MenuItem Header="模拟" FontSize="16">
+                <MenuItem Header="空白模型" FontSize="12" />
+                <MenuItem Header="流体场" FontSize="12" />
+                <MenuItem Header="风浪场" FontSize="12"  />
+                <MenuItem Header="沉积物扩散"  FontSize="12"/>
+                <MenuItem Header="河流"  FontSize="12"/>
+                <MenuItem Header="湖泊（碎屑型）" FontSize="12" />
+                <MenuItem Header="湖泊（碳酸盐型）" FontSize="12"/>
+                <MenuItem Header="海洋（碎屑型）" FontSize="12"/>
+                <MenuItem Header="海洋（碳酸盐型）" FontSize="12"/>
+            </MenuItem>
+
+            <MenuItem Header="工具" FontSize="16">
+                <MenuItem Header="插值" FontSize="12"/>
+                <MenuItem Header="沉降量计算" FontSize="12"/>
+                <MenuItem Header="转换Excel" FontSize="12" Click="MenuItem_Click_1"/>
+                <MenuItem Header="转换Json" FontSize="12" Click="MenuItem_Click_2"/>
+                <MenuItem FontSize="12">
+                    <MenuItem.Header>沉积相工具</MenuItem.Header>
+                    <MenuItem Header="滩坝识别" FontSize="12"/>
+                    <MenuItem Header="沉积相综合判别" FontSize="12"/>
+                    <MenuItem Header="岩心相人工智能识别" FontSize="12"/>
+                    <MenuItem Header="沉降量计算" FontSize="12"/>
+                </MenuItem>
+                <MenuItem Header="坐标转换" FontSize="12"/>
+            </MenuItem>
+            <MenuItem Header="显示" FontSize="16">
+                <MenuItem Header="三维显示图" FontSize="12"/>
+                <MenuItem Header="矢量场图" FontSize="12"/>
+                <MenuItem Header="剖面图" FontSize="12"/>
+                <MenuItem Header="水深图" FontSize="12"/>
+                <MenuItem Header="地形图" FontSize="12"/>
+                <MenuItem Header="沉积物厚度图" FontSize="12"/>
+                <MenuItem Header="沉积物浓度图" FontSize="12"/>
+                <MenuItem Header="测试图" FontSize="12"/>
+            </MenuItem>
+            <MenuItem Header="帮助" FontSize="16">
+                <MenuItem Header="使用说明" FontSize="12"/>
+                <MenuItem Header="关于软件" FontSize="12"/>
+            </MenuItem>
+
+        </Menu>
+
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" >
+
+
+            <!--<StackPanel  Orientation="Horizontal"  HorizontalAlignment="Left" Height = "684" Width = "200">-->
+            <!--<StackPanel  Orientation="Horizontal"  HorizontalAlignment="Left" Height = "684" Width = "200">-->
+
+            <StackPanel  Orientation="Vertical"  HorizontalAlignment="Left" Height = "684" Width = "200">
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="button1"  Margin="5"  Width="23" Height="23" Background="White">
+                        <!--<WrapPanel>
+                            -->
+                        <!--一个button中只能有一个content项，若要加多个项要用panel包裹-->
+                        <!--
+                            <Image Source="/Properties/clike.jpg" Width="23" Height="23"/>
+                            -->
+                        <!--图片引用地址从要目录开始，要加/，属性中要复制到输出目录，生成项选内容-->
+                        <!--
+                            <TextBlock Text="click me !"/>
+                        </WrapPanel>-->
+                        <Image Source="/Resources/8666650_file_plus_icon.ico" Width="20" Height="20"/>
+                    </Button>
+                    <Button x:Name="button2"  Margin="-5"  Width="23" Height="23" Background="White">
+                        <Image Source="/Resources/8666542_save_icon.ico" Width="20" Height="20"/>
+                    </Button>
+
+                    <Button x:Name="button3"  Margin="5"  Width="23" Height="23" Background="White">
+                        <Image Source="/Resources/8666726_mouse_pointer_icon.ico" Width="20" Height="20"/>
+                    </Button>
+
+                    <Button x:Name="button4"  Margin="-5"  Width="23" Height="23" Background="White">
+                        <Image Source="/Resources/8666572_zoom_in_icon.ico" Width="20" Height="20"/>
+                    </Button>
+                    <Button x:Name="button5"  Margin="5"  Width="23" Height="23" Background="White">
+                        <Image Source="/Resources/8666596_zoom_out_icon.ico" Width="20" Height="20"/>
+                    </Button>
+                    <Button x:Name="button6"  Margin="-5"  Width="23" Height="23" Background="White">
+                        <Image Source="/Resources/8666802_menu_navigation_icon.ico" Width="20" Height="20"/>
+                    </Button>
+                    <Button x:Name="button7"  Margin="5"  Width="23" Height="23" Background="White">
+                        <Image Source="/Resources/8666634_play_icon.ico" Width="20" Height="20"/>
+                    </Button>
+                    <Button x:Name="button8"  Margin="-5"  Width="23" Height="23" Background="White">
+                        <Image Source="/Resources/8666615_settings_icon.ico" Width="20" Height="20"/>
+                    </Button>
+
+                </StackPanel>
+
+                <TreeView  x:Name="Program1" Margin="10" Height = "637" ItemsSource="{Binding Notes}"  SelectedItemChanged="Program1_SelectedItemChanged">
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding ChildNotes}" >
+                            <TextBlock Text="{Binding Name}"/>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+
+                    <!--<TreeViewItem Header ="1.网格">
+                        <TreeViewItem >
+                            <Button Content="Thin Dams" Click="Button_Click"/>
+                        </TreeViewItem>
+                        <TreeViewItem Header ="Dry Areas"/>
+                        <TreeViewItem Header ="Land Boundaries"/>
+                        <TreeViewItem Header ="Dry Points"/>
+
+                    </TreeViewItem>
+                    <TreeViewItem Header ="2.地形">
+                        <TreeViewItem Header ="Output Parameters"/>
+                        <TreeViewItem Header ="Output"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header ="3.边界">
+                        <TreeViewItem Header ="新建边界"/>
+                        <TreeViewItem Header ="边界1"/>
+                    </TreeViewItem>
+
+                    <TreeViewItem Header ="4.水深">
+                        <TreeViewItem Header ="Output Parameters"/>
+                        <TreeViewItem Header ="Output"/>
+                    </TreeViewItem>
+
+                    <TreeViewItem Header ="5.流体参数">
+                        <TreeViewItem Header ="Output Parameters"/>
+                        <TreeViewItem Header ="Output"/>
+                    </TreeViewItem>
+
+                    <TreeViewItem Header ="6.沉积参数">
+                        <TreeViewItem Header ="Output Parameters"/>
+                        <TreeViewItem Header ="Output"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header ="7.其它参数">
+                        <TreeViewItem Header ="Output Parameters"/>
+                        <TreeViewItem Header ="Output"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header ="8.时间设置">
+                        <TreeViewItem Header ="Output Parameters"/>
+                        <TreeViewItem Header ="Output"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header ="9.模拟计算">
+                        <TreeViewItem Header ="Output Parameters"/>
+                        <TreeViewItem Header ="Output"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header ="10.图形显示">
+                        <TreeViewItem Header ="Output Parameters"/>
+                        <TreeViewItem Header ="Output"/>
+                    </TreeViewItem>-->
+                </TreeView>
+
+
+
+            </StackPanel>
+            <!-- TabControl,分窗口 -->
+            <StackPanel  Orientation="Horizontal" Height = "684" Width = "876">
+                <TabControl Width="870" x:Name="tab1">
+                    <!--Tab1-->
+                    <TabItem Header="介绍" FontSize="14">
+                        <Grid Background="#FFE5E5E5"  Margin="0,0,13,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <UniformGrid Grid.Row="1" Columns="3">
+
+                                <Border Margin="15" CornerRadius="5">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                                            <GradientStop Offset="0" Color="#FF8C69"/>
+                                            <GradientStop Offset="1" Color="#FF7000"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="2*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!--<TextBlock Text="&#xe6cf;" FontFamily="Fonts/#iconfont" FontSize="50" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>-->
+                                        <TextBlock Text=" " FontFamily="Fonts/#iconfont" FontSize="10" Grid.Row="0" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
+                                        <TextBlock Text="      现代沉积" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center" FontSize="30" Margin="10 0 0 0" Foreground="White"/>
+                                        <TextBlock Text="         数值模拟" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" FontSize="24" Margin="10 0 0 0" Foreground="White"/>
+                                        <TextBlock Text="       能量和动量守恒方程" Grid.Row="3" FontSize="18" Foreground="White" Margin="10 0 0 0" VerticalAlignment="Center"/>
+
+
+                                        <Canvas ClipToBounds="True" Grid.RowSpan="4">
+                                            <Border Canvas.Right="-40" Canvas.Top="10" Grid.RowSpan="4" Width="110" Height="110"  CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Top"  HorizontalAlignment="Right"/>
+                                            <Border Canvas.Right="-10" Canvas.Top="100" Grid.RowSpan="4" Width="110" Height="110" CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Bottom"  HorizontalAlignment="Right"/>
+                                        </Canvas>
+
+                                    </Grid>
+
+
+                                </Border>
+
+                                <Border Margin="15" CornerRadius="5">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                                            <GradientStop Offset="0" Color="#FFD700"/>
+                                            <GradientStop Offset="1" Color="#FFC100"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="2*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!--<TextBlock Text="&#xe602;" FontFamily="Fonts/#iconfont" FontSize="35" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>-->
+                                        <TextBlock Text=" " FontFamily="Fonts/#iconfont" FontSize="10" Grid.Row="0" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
+                                        <TextBlock Text="    岩相古地理" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center" FontSize="30" Margin="10 0 0 0" Foreground="White"/>
+                                        <TextBlock Text="          反演重建" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" FontSize="22" Margin="10 0 0 0" Foreground="White"/>
+                                        <TextBlock Text="       源汇系统+地球物理" Grid.Row="3" FontSize="18" Foreground="White" Margin="10 0 0 0" VerticalAlignment="Center"/>
+
+
+                                        <Canvas ClipToBounds="True" Grid.RowSpan="4">
+                                            <Border Canvas.Right="-40" Canvas.Top="10" Grid.RowSpan="4" Width="110" Height="110"  CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Top"  HorizontalAlignment="Right"/>
+                                            <Border Canvas.Right="-10" Canvas.Top="100" Grid.RowSpan="4" Width="110" Height="110" CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Bottom"  HorizontalAlignment="Right"/>
+                                        </Canvas>
+
+                                    </Grid>
+                                </Border>
+
+                                <Border Margin="15" CornerRadius="5">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                                            <GradientStop Offset="0" Color="#00CED1"/>
+                                            <GradientStop Offset="1" Color="#59E6B5"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Grid>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="2*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!--<TextBlock Text="&#xe634;" FontFamily="Fonts/#iconfont" FontSize="50" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>-->
+                                        <TextBlock Text=" " FontFamily="Fonts/#iconfont" FontSize="10" Grid.Row="0" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
+                                        <TextBlock Text="      研发团队" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center" FontSize="30" Margin="10 0 0 0" Foreground="White"/>
+                                        <TextBlock Text="   沉积储层研究中心" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" FontSize="24" Margin="10 0 0 0" Foreground="White"/>
+                                        <TextBlock Text="中国地质大学（北京）能源学院" Grid.Row="3" FontSize="16" Foreground="White" Margin="10 0 0 0" VerticalAlignment="Center"/>
+
+
+                                        <Canvas ClipToBounds="True" Grid.RowSpan="4">
+                                            <Border Canvas.Right="-40" Canvas.Top="10" Grid.RowSpan="4" Width="110" Height="110"  CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Top"  HorizontalAlignment="Right"/>
+                                            <Border Canvas.Right="-10" Canvas.Top="100" Grid.RowSpan="4" Width="110" Height="110" CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Bottom"  HorizontalAlignment="Right"/>
+                                        </Canvas>
+                                    </Grid>
+                                </Border>
+
+
+                            </UniformGrid>
+                            <UniformGrid Grid.Row="2" Columns="2">
+                                <Border Background="White" CornerRadius="10" Margin="5,15,-416,15">
+                                    <Image  Source="/Resources/4d95f861b155540ca440f4a33f3b0e0.png" Stretch="Fill"/>
+                                </Border>
+                                <!--<Border Background="White"  CornerRadius="10" Margin="5,15,10,15">
+                                    <Image  Source="/Resources/6d99df782e7a11e24d5e65bc11d25d0.png"  Margin="6,20,4,33"/>
+                                </Border>-->
+                            </UniformGrid>
+
+                            <Grid Grid.Row="2" Margin="15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header = "盆地" FontSize="14">
+                        
+                            <TabControl Width="856" x:Name="tab4">
+                                <TabItem Header="网格" FontSize="12">
+                                    <Grid Background="#FFE5E5E5"  Margin="0,0,13,444" Height="200">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="19*"/>
+                                            <ColumnDefinition Width="260*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBox HorizontalAlignment="Left" x:Name="nx" Margin="13,76,0,0" TextWrapping="Wrap" Text="101" VerticalAlignment="Top" Width="50" TextChanged="TextBox_TextChanged" Height="14" Grid.Column="1"/>
+                                        <Button Content="确定" HorizontalAlignment="Left" Margin="263,18,0,0" VerticalAlignment="Top" Click="Button_Click_2wg" Grid.Column="1"/>
+                                        <TextBlock HorizontalAlignment="Left"  Margin="36,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2"><Run Text="Lx（现实物理宽度）="/></TextBlock>
+                                        <TextBox Grid.Column="1" x:Name="lx" HorizontalAlignment="Left" Margin="101,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged_5" Text="100000"/>
+                                        <TextBlock HorizontalAlignment="Left"  Margin="36,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2"><Run Text="Ly（现实物理长度）="/></TextBlock>
+                                        <TextBox Grid.Column="1" x:Name="ly" HorizontalAlignment="Left" Margin="101,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged_5" Text="80000"/>
+
+                                        <TextBlock HorizontalAlignment="Left"  x:Name="Nx" Margin="36,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2"><Run Text="Nx="/></TextBlock>
+                                        <!--<TextBlock HorizontalAlignment="Left" Margin="97,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Grid.Column="1"><Run Text="k（紊动运动粘性项系数）="/></TextBlock>
+           -->
+                                        <!--<Label Content="k（紊动运动粘性项系数）=" HorizontalAlignment="Left" Margin="92,150,0,0" VerticalAlignment="Top" Height="26" Width="155" Grid.Column="1"/>-->
+                                        <!--
+           <TextBox HorizontalAlignment="Left" x:Name="k" Margin="251,156,0,0" TextWrapping="Wrap" Text="50" VerticalAlignment="Top" Width="50" TextChanged="TextBox_TextChanged" Height="14" Grid.Column="1"/>-->
+                                        <!--<Label Content="Nx=" HorizontalAlignment="Left" Margin="36,70,0,0" VerticalAlignment="Top" Height="27" Width="49" Grid.ColumnSpan="2"/>-->
+                                        <TextBlock HorizontalAlignment="Left"  x:Name="Ny" Margin="91,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1"><Run Text="Ny="/></TextBlock>
+                                        <!--<Label Content="Ny="  x:Name="Ny" HorizontalAlignment="Left" Margin="92,70,0,0" VerticalAlignment="Top" Height="27" Width="49" Grid.Column="1"/>-->
+                                        <TextBox HorizontalAlignment="Left" x:Name="ny" Margin="126,76,0,0" TextWrapping="Wrap" Text="101" VerticalAlignment="Top" Width="50" TextChanged="TextBox_TextChanged" Height="14" Grid.Column="1"/>
+
+                                        <TextBlock HorizontalAlignment="Left"  Margin="36,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="29"><Run Text="dt="/></TextBlock>
+                                        <!--<Label Content="dt=" x:Name="dt" HorizontalAlignment="Left" Margin="36,101,0,0" VerticalAlignment="Top" Height="27" Width="49" Grid.ColumnSpan="2"/>-->
+                                        <TextBox HorizontalAlignment="Left" x:Name="dt" Margin="13,107,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="50" TextChanged="TextBox_TextChanged" Height="14" Grid.Column="1"/>
+
+                                        <TextBlock HorizontalAlignment="Left"  Margin="91,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="29" Grid.Column="1"><Run Text="T="/></TextBlock>
+                                        <!--<Label Content="T=" x:Name="T" HorizontalAlignment="Left" Margin="92,101,0,0" VerticalAlignment="Top" Height="27" Width="49" Grid.Column="1"/>-->
+                                        <TextBox HorizontalAlignment="Left" x:Name="t" Margin="126,107,0,0" TextWrapping="Wrap" Text="400" VerticalAlignment="Top" Width="50" TextChanged="TextBox_TextChanged" Height="14" Grid.Column="1"/>
+
+                                        <TextBlock HorizontalAlignment="Left"  Margin="36,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="59" Grid.ColumnSpan="2"><Run Text="jingdu="/></TextBlock>
+                                        <!--<Label Content="jingdu=" HorizontalAlignment="Left" Margin="36,131,0,0" VerticalAlignment="Top" Height="27" Width="59" Grid.ColumnSpan="2"/>-->
+                                        <TextBox HorizontalAlignment="Left" x:Name="jingdu" Margin="38,137,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="50" TextChanged="TextBox_TextChanged" Height="14" Grid.Column="1"/>
+                                        <TextBlock HorizontalAlignment="Left" Margin="36,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="59" Grid.ColumnSpan="2"><Run Text="weidu="/></TextBlock>
+                                        <!--<Label Content="weidu=" x:Name="weidu" HorizontalAlignment="Left" Margin="31,150,0,0" VerticalAlignment="Top" Height="27" Width="59" Grid.ColumnSpan="2"/>-->
+                                        <TextBox HorizontalAlignment="Left" x:Name="weidu" Margin="38,156,0,0" TextWrapping="Wrap" Text="36.5" VerticalAlignment="Top" Width="50" TextChanged="TextBox_TextChanged" Height="14" Grid.Column="1"/>
+                                        <TextBlock HorizontalAlignment="Left" Margin="97,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="91" Grid.Column="1"><Run Text="jiaosudu"/><Run Language="zh-cn" Text="(°/s)"/><Run Text="="/></TextBlock>
+                                        <!--<Label Content="jiaosudu=" x:Name="jiaosudu" HorizontalAlignment="Left" Margin="92,132,0,0" VerticalAlignment="Top" Height="26" Width="69" Grid.Column="1"/>-->
+                                        <TextBox HorizontalAlignment="Left" x:Name="jiaosudu" Margin="188,137,0,0" TextWrapping="Wrap" Text="0.00007292" VerticalAlignment="Top" Width="88" TextChanged="TextBox_TextChanged" Height="14" Grid.Column="1"/>
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="地形" FontSize="12">
+                                    <Grid Background="#FFE5E5E5" Margin="0,0,0,270">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="19*"/>
+                                            <ColumnDefinition Width="831*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="19,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1"><Run Language="zh-cn" Text="坐标系"/></TextBlock>
+                                        <ComboBox HorizontalAlignment="Left" Margin="109,14,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1"/>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="6,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1"><Run Text="经度（"/><Run Text="度.分"/><Run Text="."/><Run Text="秒"/><Run Text="）"/></TextBlock>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="6,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1"><Run Language="zh-cn" Text="纬"/><Run Text="度（"/><Run Text="度.分"/><Run Text="."/><Run Text="秒"/><Run Text="）"/></TextBlock>
+                                        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="109,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged_1"/>
+                                        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="109,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                                        <Button Content="确定" Foreground="Gray" HorizontalAlignment="Left" Margin="23,122,0,0" VerticalAlignment="Top" Click="Button_Click_1" Grid.Column="1"/>
+
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="边界" Margin="-2,-2,-2,0" FontSize="12">
+                                    <Grid Background="#FFE5E5E5" Margin="0,0,-15,444">
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="39,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="边界"/><Run Text="起"/><Run Text="点"/><Run Language="zh-cn" Text="（X坐标）"/></TextBlock>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="338,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.526,1.774"><Run Text="边界"/><Run Text="终"/><Run Text="点"/><Run Language="zh-cn" Text="（Y坐标）"/></TextBlock>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="39,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="边界"/><Run Text="起"/><Run Text="点"/><Run Text="（"/><Run Language="zh-cn" Text="Y"/><Run Text="坐标）"/></TextBlock>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="338,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.526,1.774"><Run Text="边界"/><Run Text="终"/><Run Text="点"/><Run Text="（"/><Run Language="zh-cn" Text="X"/><Run Text="坐标）"/></TextBlock>
+                                        <TextBox HorizontalAlignment="Left" Margin="161,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                                        <TextBox HorizontalAlignment="Left" Margin="460,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                                        <TextBox HorizontalAlignment="Left" Margin="460,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                                        <TextBox HorizontalAlignment="Left" Margin="161,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                                        <TextBlock HorizontalAlignment="Left"  Foreground="Gray" Margin="39,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="zh-cn" Text="边界位置："/></TextBlock>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="39,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="边界"/><Run Language="zh-cn" Text="数据"/><Run Text="："/></TextBlock>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="39,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="边界类型"/>
+                                        <ComboBox HorizontalAlignment="Left" Foreground="Gray" Margin="109,95,0,0" VerticalAlignment="Top"  Width="89" Height="21" SelectionChanged="ComboBox_SelectionChanged_2">
+                                            <ComboBoxItem Content="请选择" Foreground="Gray" IsSelected="True"/>
+                                            <ComboBoxItem Content="水位"/>
+                                            <ComboBoxItem Content="流量"/>
+                                            <ComboBoxItem Content="泥沙浓度"/>
+                                        </ComboBox>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="39,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="zh-cn" Text="序列数据"/><Run Text="："/></TextBlock>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="282,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="边界"/><Run Language="zh-cn" Text="序列"/></TextBlock>
+                                        <ComboBox HorizontalAlignment="Left" Foreground="Gray" Margin="352,98,0,0" VerticalAlignment="Top"  Width="89" Height="21" SelectionChanged="ComboBox_SelectionChanged_2">
+                                            <ComboBoxItem Content="请选择" Foreground="Gray" IsSelected="True"/>
+                                            <ComboBoxItem Content="时间序列"/>
+                                            <ComboBoxItem Content="天文序列"/>
+
+                                        </ComboBox>
+                                        <Button Content="请选择文件" Foreground="Gray" HorizontalAlignment="Left" Margin="115,125,0,0" VerticalAlignment="Top" Click="Button_Click_2" Width="66"/>
+                                        <TextBox HorizontalAlignment="Left" Foreground="Gray" Margin="230,127,0,0" TextWrapping="Wrap" Text="注：此处设置按钮选择文件输入数据" VerticalAlignment="Top" Width="235"/>
+                                        <Button Content="确定" Foreground="Gray" HorizontalAlignment="Left" Margin="520,99,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+
+                                    </Grid>
+                                </TabItem>
+                            </TabControl>
+                     
+                        </TabItem>
+
+
+
+                            <TabItem HorizontalAlignment="Left" Height="30" Header="物源" VerticalAlignment="Top" Width="59" Margin="-2,-2,0,0" FontSize="14">
+                        <TabControl Width="856" x:Name="tab2" Margin="5,0,3,0">
+                            <!--<TabItem Header="介绍" FontSize="12">
+                                <Grid Background="#FFE5E5E5"  Margin="0,0,13,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <UniformGrid Grid.Row="1" Columns="3">
+
+                                        <Border Margin="15" CornerRadius="5">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                                                    <GradientStop Offset="0" Color="#FF8C69"/>
+                                                    <GradientStop Offset="1" Color="#FF7000"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="2*"/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition Height="2*"/>
+                                                </Grid.RowDefinitions>
+
+                                                -->
+                            <!--<TextBlock Text="&#xe6cf;" FontFamily="Fonts/#iconfont" FontSize="50" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>-->
+                            <!--
+                                                <TextBlock Text=" " FontFamily="Fonts/#iconfont" FontSize="10" Grid.Row="0" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
+                                                <TextBlock Text="      现代沉积" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center" FontSize="30" Margin="10 0 0 0" Foreground="White"/>
+                                                <TextBlock Text="         数值模拟" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" FontSize="24" Margin="10 0 0 0" Foreground="White"/>
+                                                <TextBlock Text="       能量和动量守恒方程" Grid.Row="3" FontSize="18" Foreground="White" Margin="10 0 0 0" VerticalAlignment="Center"/>
+                               
+
+                                                <Canvas ClipToBounds="True" Grid.RowSpan="4">
+                                                    <Border Canvas.Right="-40" Canvas.Top="10" Grid.RowSpan="4" Width="110" Height="110"  CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Top"  HorizontalAlignment="Right"/>
+                                                    <Border Canvas.Right="-10" Canvas.Top="100" Grid.RowSpan="4" Width="110" Height="110" CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Bottom"  HorizontalAlignment="Right"/>
+                                                </Canvas>
+
+                                            </Grid>
+
+
+                                        </Border>
+
+                                        <Border Margin="15" CornerRadius="5">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                                                    <GradientStop Offset="0" Color="#FFD700"/>
+                                                    <GradientStop Offset="1" Color="#FFC100"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="2*"/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition Height="2*"/>
+                                                </Grid.RowDefinitions>
+
+                                                -->
+                            <!--<TextBlock Text="&#xe602;" FontFamily="Fonts/#iconfont" FontSize="35" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>-->
+                            <!--
+                                                <TextBlock Text=" " FontFamily="Fonts/#iconfont" FontSize="10" Grid.Row="0" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
+                                                <TextBlock Text="    岩相古地理" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center" FontSize="30" Margin="10 0 0 0" Foreground="White"/>
+                                                <TextBlock Text="          反演重建" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" FontSize="22" Margin="10 0 0 0" Foreground="White"/>
+                                                <TextBlock Text="       源汇系统+地球物理" Grid.Row="3" FontSize="18" Foreground="White" Margin="10 0 0 0" VerticalAlignment="Center"/>
+
+
+                                                <Canvas ClipToBounds="True" Grid.RowSpan="4">
+                                                    <Border Canvas.Right="-40" Canvas.Top="10" Grid.RowSpan="4" Width="110" Height="110"  CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Top"  HorizontalAlignment="Right"/>
+                                                    <Border Canvas.Right="-10" Canvas.Top="100" Grid.RowSpan="4" Width="110" Height="110" CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Bottom"  HorizontalAlignment="Right"/>
+                                                </Canvas>
+
+                                            </Grid>
+                                        </Border>
+
+                                        <Border Margin="15" CornerRadius="5">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                                                    <GradientStop Offset="0" Color="#00CED1"/>
+                                                    <GradientStop Offset="1" Color="#59E6B5"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <Grid>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="2*"/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition Height="2*"/>
+                                                </Grid.RowDefinitions>
+
+                                                -->
+                            <!--<TextBlock Text="&#xe634;" FontFamily="Fonts/#iconfont" FontSize="50" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>-->
+                            <!--
+                                                <TextBlock Text=" " FontFamily="Fonts/#iconfont" FontSize="10" Grid.Row="0" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
+                                                <TextBlock Text="      研发团队" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center" FontSize="30" Margin="10 0 0 0" Foreground="White"/>
+                                                <TextBlock Text="   沉积储层研究中心" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" FontSize="24" Margin="10 0 0 0" Foreground="White"/>
+                                                <TextBlock Text="中国地质大学（北京）能源学院" Grid.Row="3" FontSize="16" Foreground="White" Margin="10 0 0 0" VerticalAlignment="Center"/>
+
+
+                                                <Canvas ClipToBounds="True" Grid.RowSpan="4">
+                                                    <Border Canvas.Right="-40" Canvas.Top="10" Grid.RowSpan="4" Width="110" Height="110"  CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Top"  HorizontalAlignment="Right"/>
+                                                    <Border Canvas.Right="-10" Canvas.Top="100" Grid.RowSpan="4" Width="110" Height="110" CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Bottom"  HorizontalAlignment="Right"/>
+                                                </Canvas>
+                                            </Grid>
+                                        </Border>
+
+
+                                    </UniformGrid>
+                                    <UniformGrid Grid.Row="2" Columns="2">
+                                    <Border Background="White" CornerRadius="10" Margin="5,15,10,15">
+                                            <Image  Source="/Resources/4d95f861b155540ca440f4a33f3b0e0.png"  Margin="6,20,4,36"/>
+                                    </Border>
+                                        <Border Background="White"  CornerRadius="10" Margin="5,15,10,15">
+                                            <Image  Source="/Resources/6d99df782e7a11e24d5e65bc11d25d0.png"  Margin="6,20,4,33"/>
+                                        </Border>
+                                    </UniformGrid>
+
+                                    <Grid Grid.Row="2" Margin="15">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                    </Grid>
+                                </Grid>
+                            </TabItem>-->
+                         
+                           
+                           
+                            <TabItem Header="沉积参数" Margin="-2,-2,-2,0" FontSize="12">
+                                <Grid Background="#FFE5E5E5" Margin="0,0,-15,444">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="19*"/>
+                                        <ColumnDefinition Width="136*"/>
+                                        <ColumnDefinition Width="125*"/>
+                                        <ColumnDefinition Width="585*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--原为沉积物干重-->
+                                    <TextBlock HorizontalAlignment="Left" Margin="2,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139" Grid.ColumnSpan="2" Grid.Column="2"><Run Text="颗粒密度（kg/m^3）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="30,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Grid.Column="3" x:Name="klmd" Text="2650" TextChanged="klmd_TextChanged"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="2,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="沉积物类型" Grid.Column="2"/>
+                                    <ComboBox HorizontalAlignment="Left" Margin="75,10,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" x:Name="type" Grid.Column="2">
+                                        <ComboBoxItem Content="请选择" IsSelected="True"/>
+                                        <ComboBoxItem Content="粘性"/>
+                                        <ComboBoxItem Content="非粘性"/>
+                                    </ComboBox>
+                                    <!--原为沉积物浓度-->
+                                    <!--<TextBlock HorizontalAlignment="Left" Margin="2,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="139" Grid.ColumnSpan="2" Grid.Column="2"><Run Text="流体密度（kg/m^3）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="30,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="79" Grid.Column="3" x:Name="ltmd" Text="1000"/>-->
+                                    <TextBlock HorizontalAlignment="Left" Margin="2,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139" Grid.ColumnSpan="2" Grid.Column="2"><Run Text="中值粒径（m）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="30,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Grid.Column="3" x:Name="zzlj" Text="0.0005"/>
+                                    <Button Content="确定" HorizontalAlignment="Left" Margin="95,10,0,0" VerticalAlignment="Top" Click="Button_Click_1" Grid.Column="3"/>
+                                    <!--<TextBlock Grid.Column="4" HorizontalAlignment="Left" Margin="44,47,0,0" TextWrapping="Wrap" Text="流体动力粘度（N·s/m^3）" VerticalAlignment="Top"/>
+                                    <TextBox Grid.Column="4" HorizontalAlignment="Left" Margin="213,47,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="79" x:Name="ltdlnd" Text="0.001004"/>-->
+                                    <TextBlock Grid.Column="4" HorizontalAlignment="Left" Margin="44,48,0,0" TextWrapping="Wrap" Text="粗糙率（%）" VerticalAlignment="Top"/>
+                                    <TextBox Grid.Column="4" HorizontalAlignment="Left" Margin="196,48,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="79" x:Name="ccl" Text="0.03"/>
+                                    <TextBlock Grid.Column="4" HorizontalAlignment="Left" Margin="44,96,0,0" TextWrapping="Wrap" Text="初始泥沙密度（kg/m^3）" VerticalAlignment="Top"/>
+                                    <TextBox Grid.Column="4" HorizontalAlignment="Left" Margin="196,97,0,0" TextWrapping="Wrap" Text="2500" VerticalAlignment="Top" Width="79" TextChanged="TextBox_TextChanged_4" x:Name="csnsmd"/>
+                                    <!--<TextBlock HorizontalAlignment="Left" Margin="2,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139" Grid.ColumnSpan="2" Grid.Column="2"><Run Language="zh-cn" Text="深度"/><Run Text="（"/><Run Language="zh-cn" Text="m"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="30,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Grid.Column="3" x:Name="sd" Text="20"/>-->
+                                </Grid>
+                            </TabItem>
+                            
+                            <TabItem Header="其它参数" Margin="-2,-2,-2,0" FontSize="12">
+                                <Grid Background="#FFE5E5E5" Margin="0,0,-17,444" Height="192">
+                                    <Button Content="请输入文件" Foreground="Gray" HorizontalAlignment="Left" Margin="37,54,0,0" VerticalAlignment="Top" Click="Button_Click_3" RenderTransformOrigin="0.875,0.461"/>
+                                    <TextBox HorizontalAlignment="Left" Foreground="Gray" Margin="129,56,0,0" TextWrapping="Wrap" Text="注：数据类型为时间、速度、方向" VerticalAlignment="Top" Width="236" TextChanged="TextBox_TextChanged_2"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="37,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48"><Run Text="粗糙度"/><Run Language="zh-cn" Text="："/></TextBlock>
+                                    <ComboBox HorizontalAlignment="Left" Foreground="Gray" Margin="101,13,0,0" VerticalAlignment="Top" Width="120">
+                                        <ComboBoxItem Content="请选择" IsSelected="True"/>
+                                        <ComboBoxItem Content="Chezy"/>
+                                        <ComboBoxItem Content="Manning"/>
+                                    </ComboBox>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="263,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"><Run Language="zh-cn" Text="Chezy系数"/></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="501,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95"><Run Language="zh-cn" Text="Manning"/><Run Text="系数"/></TextBlock>
+                                    <Button Content="请输入相应粗糙度文件" Foreground="Gray" HorizontalAlignment="Left" Margin="342,14,0,0" VerticalAlignment="Top" Click="Button_Click_4"/>
+                                    <Button Content="请输入相应粗糙度文件" Foreground="Gray" HorizontalAlignment="Left" Margin="591,13,0,0" VerticalAlignment="Top"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="37,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"><Run Language="zh-cn" Text="地貌加速因子"/><Run Text="："/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="128,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged_3"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="37,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47"><Run Language="zh-cn" Text="粘度"/><Run Text="："/></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="128,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"><Run Text="垂直涡流粘度"/><Run Text="（"/><Run Language="zh-cn" Text="m^2/s"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="263,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="331,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158"><Run Text="垂直"/><Run Language="zh-cn" Text="涡旋扩散系数"/><Run Text="（"/><Run Text="m^2/s"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="501,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="591,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136"><Run Text="Ozmidov长度标度"/><Run Text="（"/><Run Text="m）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="732,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3"/>
+                                </Grid>
+
+
+
+                            </TabItem>
+                            <!--<TabItem Header="风浪参数" Margin="-2,-2,-2,0" FontSize="12">
+                                <Grid Background="#FFE5E5E5" Margin="0,0,-17,444" Height="192">
+                                    <TextBlock HorizontalAlignment="Left" Margin="10,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"><Run Text="风应力参数："/></TextBlock>
+                                    <Button Content="请输入文件" Foreground="Gray" HorizontalAlignment="Left" Margin="650,19,0,0" VerticalAlignment="Top" Click="Button_Click_3" RenderTransformOrigin="0.875,0.461"/>
+                                    <TextBox HorizontalAlignment="Left" Foreground="Gray" Margin="783,10,0,0" TextWrapping="Wrap" Text="注：数据类型为时间、速度、方向" VerticalAlignment="Top" Width="62" TextChanged="TextBox_TextChanged_2"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="36,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48"><Run Text="粗糙度"/><Run Language="zh-cn" Text="："/></TextBlock>
+                                    <ComboBox HorizontalAlignment="Left" Foreground="Gray" Margin="110,81,0,0" VerticalAlignment="Top" Width="120">
+                                        <ComboBoxItem Content="请选择" IsSelected="True"/>
+                                        <ComboBoxItem Content="Chezy"/>
+                                        <ComboBoxItem Content="Manning"/>
+                                    </ComboBox>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="263,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"><Run Language="zh-cn" Text="Chezy系数"/></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="490,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95"><Run Language="zh-cn" Text="Manning"/><Run Text="系数"/></TextBlock>
+                                    <Button Content="请输入相应粗糙度文件" Foreground="Gray" HorizontalAlignment="Left" Margin="340,82,0,0" VerticalAlignment="Top" Click="Button_Click_4"/>
+                                    <Button Content="请输入相应粗糙度文件" Foreground="Gray" HorizontalAlignment="Left" Margin="581,84,0,0" VerticalAlignment="Top"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="37,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"><Run Language="zh-cn" Text="地貌加速因子"/><Run Text="："/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="128,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged_3"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="37,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47"><Run Language="zh-cn" Text="粘度"/><Run Text="："/></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="128,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"><Run Text="垂直涡流粘度"/><Run Text="（"/><Run Language="zh-cn" Text="m^2/s"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="263,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="331,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158"><Run Text="垂直"/><Run Language="zh-cn" Text="涡旋扩散系数"/><Run Text="（"/><Run Text="m^2/s"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="501,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="591,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136"><Run Text="Ozmidov长度标度"/><Run Text="（"/><Run Text="m）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="732,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3"/>
+                                    <Button Content="确定" HorizontalAlignment="Left" Margin="733,20,0,0" VerticalAlignment="Top" Click="Button_Click_3fl" RenderTransformOrigin="11.488,-3.186"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="85,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125"><Run Text="空气密度（kg/m^3)" /></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" x:Name="kqmd" Margin="205,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="TextBox_TextChanged_3" Text="1.29"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="265,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="65"><Run Language="zh-cn" Text="风曳力系数"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" x:Name="fyl" Margin="335,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55" TextChanged="TextBox_TextChanged_3" Text="0.001"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="402,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125"><Run Text="平均风速（"/><Run Language="zh-cn" Text="m/s"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" x:Name="pjfs" Margin="495,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57" TextChanged="TextBox_TextChanged_3" Text="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="559,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="31"><Run Language="zh-cn" Text="角度"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" x:Name="jd" Margin="588,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48" TextChanged="TextBox_TextChanged_3" Text="-45"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="10,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"><Run Language="zh-cn" Text="波浪辐射应"/><Run Text="力参数"/><Run Text="："/></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Margin="125,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="63"><Run Text="波长"/><Run Text="（"/><Run Language="zh-cn" Text="m"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" x:Name="bc" Margin="193,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="TextBox_TextChanged_3" Text="25"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="264,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="65"><Run Language="zh-cn" Text="波向角（°）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" x:Name="bxj" Margin="334,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55" TextChanged="TextBox_TextChanged_3" Text="-45"/>
+                                </Grid>
+                            </TabItem>-->
+                           
+                           
+
+
+                        </TabControl>
+                    </TabItem>
+
+                    <TabItem Header = "输移" FontSize="14">
+                        <TabControl Width="856" x:Name="tab5" Margin="5,0,3,0" RenderTransformOrigin="0.5,0.5">
+                            <TabItem Header="流体参数" Margin="-2,-2,-2,0" FontSize="12">
+                                <Grid Background="#FFE5E5E5" Margin="0,0,-15,444">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="239*"/>
+                                        <ColumnDefinition Width="231*"/>
+                                        <ColumnDefinition Width="395*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Left" Margin="57,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Grid.Column="1" Text="k（紊动运动粘性项系数）"/>
+                                    <!--<Label Content="k（紊动运动粘性项系数）=" HorizontalAlignment="Left" Margin="92,150,0,0" VerticalAlignment="Top" Height="26" Width="155" Grid.Column="1"/>-->
+                                    <TextBlock HorizontalAlignment="Left" Margin="37,16,0,0" TextWrapping="Wrap" Text="流体动力粘度（N·s/m^3）" VerticalAlignment="Top"/>
+                                    <TextBox HorizontalAlignment="Left" Margin="194,15,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="79" x:Name="ltdlnd" Text="0.001004" Grid.ColumnSpan="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="57,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Grid.Column="1"><Run Text="流体密度（kg/m^3）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="202,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Grid.Column="1" x:Name="ltmd" Text="1000" Grid.ColumnSpan="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="37,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73"><Run Language="zh-cn" Text="深度"/><Run Text="（"/><Run Language="zh-cn" Text="m"/><Run Text="）"/></TextBlock>
+                                    <TextBox Margin="194,59,196,0" TextWrapping="Wrap" VerticalAlignment="Top" x:Name="sd" Text="20" Grid.ColumnSpan="2"/>
+                                    <TextBox HorizontalAlignment="Left" x:Name="k" Margin="202,59,0,0" TextWrapping="Wrap" Text="50" VerticalAlignment="Top" Width="66" TextChanged="TextBox_TextChanged" Height="17" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="37,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47"><Run Language="zh-cn" Text="粘度"/><Run Text="："/></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="37,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"><Run Text="垂直涡流粘度"/><Run Text="（"/><Run Language="zh-cn" Text="m^2/s"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="172,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="1,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" Grid.Column="1"><Run Text="垂直"/><Run Language="zh-cn" Text="涡旋扩散系数"/><Run Text="（"/><Run Text="m^2/s"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="171,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3" Grid.Column="1"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="30,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" Grid.Column="2"><Run Text="Ozmidov长度标度"/><Run Text="（"/><Run Text="m）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="171,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3" Grid.Column="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="36,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"><Run Text="温度（℉）"/><Run Language="zh-cn" Text=":"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="120,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="17,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" Grid.Column="1"><Run Text="盐度（%）"/><Run Text=":"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="97,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3" Grid.Column="1"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="33,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Grid.Column="2"><Run Text="度（kg/m^3）:"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="142,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3" Grid.Column="2"/>
+                                    <!--<Button Content="确定"  HorizontalAlignment="Left" Margin="85,59,0,0" VerticalAlignment="Top" Click="Button_Click_4lt" Grid.Column="2"/>-->
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="时间设置" Margin="-2,-2,-2,0" FontSize="12">
+                                <Grid Background="#FFE5E5E5" Margin="0,0,-15,444">
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="51,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="模拟开始时间"/><Run Text="（"/><Run Language="zh-cn" Text="dd mm yyyy"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="227,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="51,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="模拟"/><Run Language="zh-cn" Text="结束"/><Run Text="时间"/><Run Text="（"/><Run Text="dd mm yyyy"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="227,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="51,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="zh-cn" Text="步长（s）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="120,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                                    <Button Content="确定" Foreground="Gray" HorizontalAlignment="Left" Margin="287,93,0,0" VerticalAlignment="Top" Click="Button_Click_0All"/>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </TabItem>
+
+                    <!--Tab1-->
+                    <!--Tab1-->
+                    <TabItem Header = "水体" FontSize="14">
+                       
+                            <TabControl Width="856" x:Name="tab3" Margin="5,0,3,0" RenderTransformOrigin="0.5,0.5">
+                                <TabItem Header="水深" Margin="-2,-2,-2,0" FontSize="12">
+                                <Grid Background="#FFE5E5E5" Margin="0,0,-15,444">
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="49,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="水深分层（请输入正整数）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="208,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77"/>
+                                    <Button Content="确定" Foreground="Gray" HorizontalAlignment="Left" Margin="60,68,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+                                </Grid>
+                            </TabItem>
+
+                            <TabItem Header="流体参数" Margin="-2,-2,-2,0" FontSize="12">
+                                <Grid Background="#FFE5E5E5" Margin="0,0,-15,444">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="239*"/>
+                                        <ColumnDefinition Width="231*"/>
+                                        <ColumnDefinition Width="395*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Left" Margin="57,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Grid.Column="1" Text="k（紊动运动粘性项系数）"/>
+                                    <!--<Label Content="k（紊动运动粘性项系数）=" HorizontalAlignment="Left" Margin="92,150,0,0" VerticalAlignment="Top" Height="26" Width="155" Grid.Column="1"/>-->
+                                    <TextBlock HorizontalAlignment="Left" Margin="37,16,0,0" TextWrapping="Wrap" Text="流体动力粘度（N·s/m^3）" VerticalAlignment="Top"/>
+                                    <TextBox HorizontalAlignment="Left" Margin="194,15,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="79" x:Name="ltdlndd" Text="0.001004" Grid.ColumnSpan="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="57,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Grid.Column="1"><Run Text="流体密度（kg/m^3）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="202,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Grid.Column="1" x:Name="ltmdd" Text="1000" Grid.ColumnSpan="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="37,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73"><Run Language="zh-cn" Text="深度"/><Run Text="（"/><Run Language="zh-cn" Text="m"/><Run Text="）"/></TextBlock>
+                                    <TextBox Margin="194,59,196,0" TextWrapping="Wrap" VerticalAlignment="Top" x:Name="sdd" Text="20" Grid.ColumnSpan="2"/>
+                                    <TextBox HorizontalAlignment="Left" x:Name="kk" Margin="202,59,0,0" TextWrapping="Wrap" Text="50" VerticalAlignment="Top" Width="66" TextChanged="TextBox_TextChanged" Height="17" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="37,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47"><Run Language="zh-cn" Text="粘度"/><Run Text="："/></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="37,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"><Run Text="垂直涡流粘度"/><Run Text="（"/><Run Language="zh-cn" Text="m^2/s"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="172,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="1,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" Grid.Column="1"><Run Text="垂直"/><Run Language="zh-cn" Text="涡旋扩散系数"/><Run Text="（"/><Run Text="m^2/s"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="171,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3" Grid.Column="1"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="30,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" Grid.Column="2"><Run Text="Ozmidov长度标度"/><Run Text="（"/><Run Text="m）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="171,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3" Grid.Column="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="36,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"><Run Text="温度（℉）"/><Run Language="zh-cn" Text=":"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="120,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="17,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" Grid.Column="1"><Run Text="盐度（%）"/><Run Text=":"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="97,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3" Grid.Column="1"/>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="Gray" Margin="33,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Grid.Column="2"><Run Text="度（kg/m^3）:"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" Margin="142,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58" TextChanged="TextBox_TextChanged_3" Grid.Column="2"/>
+                                    <!--<Button Content="确定"  HorizontalAlignment="Left" Margin="85,59,0,0" VerticalAlignment="Top" Click="Button_Click_4lt" Grid.Column="2"/>-->
+                                </Grid>
+                            </TabItem>
+
+                        </TabControl>
+                    
+                    </TabItem>
+                    <TabItem Header = "风浪" FontSize="14">
+                        <TabControl Width="856" x:Name="tab6" Margin="5,0,3,0" RenderTransformOrigin="0.5,0.5">
+                            <TabItem Header="风浪参数" Margin="-2,-2,-2,0" FontSize="12">
+                                <Grid Background="#FFE5E5E5" Margin="0,0,-17,444" Height="192">
+                                    <TextBlock HorizontalAlignment="Left" Margin="23,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"><Run Text="风应力参数："/></TextBlock>
+
+                                    <Button Content="确定" HorizontalAlignment="Left" Margin="444,119,0,0" VerticalAlignment="Top" Click="Button_Click_3fl" RenderTransformOrigin="11.488,-3.186"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="24,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125"><Run Text="空气密度（kg/m^3)" /></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" x:Name="kqmd" Margin="144,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="TextBox_TextChanged_3" Text="1.29"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="226,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="65"><Run Language="zh-cn" Text="风曳力系数"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" x:Name="fyl" Margin="296,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55" TextChanged="TextBox_TextChanged_3" Text="0.001"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="371,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94"><Run Text="平均风速（"/><Run Language="zh-cn" Text="m/s"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" x:Name="pjfs" Margin="470,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="41" TextChanged="TextBox_TextChanged_3" Text="4"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="535,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="31"><Run Language="zh-cn" Text="角度"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" x:Name="jd" Margin="568,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48" TextChanged="TextBox_TextChanged_3" Text="-0.785398"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="22,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"><Run Language="zh-cn" Text="波浪辐射应"/><Run Text="力参数"/><Run Text="："/></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Margin="24,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="63"><Run Text="波长"/><Run Text="（"/><Run Language="zh-cn" Text="m"/><Run Text="）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" x:Name="bc" Margin="92,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="TextBox_TextChanged_3" Text="1"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="195,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="65"><Run Language="zh-cn" Text="波向角（°）"/></TextBlock>
+                                    <TextBox HorizontalAlignment="Left" x:Name="bxj" Margin="265,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55" TextChanged="TextBox_TextChanged_3" Text="0.392699"/>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Header = "模拟" FontSize="14">
+                        <TabControl Width="856" x:Name="tab7" Margin="5,0,3,0" RenderTransformOrigin="0.5,0.5">
+                            <TabItem Header="模拟计算" Margin="-2,-2,-2,0" FontSize="12">
+                            <Grid Background="#FFE5E5E5" Margin="0,0,-15,444">
+                                <TextBlock HorizontalAlignment="Left"  Margin="32,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="点击确定"/><Run Text="键"/><Run Text="开始模拟计算"/><Run Language="zh-cn" Text="："/></TextBlock>
+                                <Button Content="确定"  HorizontalAlignment="Left" Margin="181,22,0,0" VerticalAlignment="Top" Click="Button_Click_0All"/>
+                            </Grid>
+                        </TabItem>
+                            </TabControl>
+                    </TabItem>
+                    <TabItem Header = "显示" FontSize="14">
+                        <StackPanel  Height = "700" Width = "1300">
+
+                        </StackPanel>
+                    </TabItem>
+                    <!--Tab1-->
+                    
+
+                    <!--Tab2-->
+                   
+                    <!--Tab3-->
+                    <Grid Background="#FFE5E5E5" Height="657" Width="864"/>
+
+                    <!--Tab4-->
+
+
+
+                    <!--原工具栏ToolBar-->
+                    <!--<ToolBar >
+                        <Button Name="btnShowHide" Content="Show/Hide" Click="btnShowHide_Click" />
+                        <Button Name="btnAddSeries" Content="PushData" Margin="10,0,0,0" Click="btnPushData_Click" />
+                        -->
+                    <!-- 添加其他工具栏按钮 -->
+                    <!--
+                    </ToolBar>
+                    <ToolBar Header =" Search" >
+                        <TextBox Width = "120" Height ="20"/>
+                        <Button Width = "25">GO</Button>
+                    </ToolBar>-->
+                </TabControl>
+            </StackPanel>
+        </StackPanel>
+
+
+
+        <StatusBar Grid.Row="2" Margin="0 32 0 0">
+            <StatusBarItem>
+                <TextBlock Text="Status: Ready"/>
+            </StatusBarItem>
+            <!-- 添加其他状态栏项 -->
+        </StatusBar>
+    </Grid>
+</Window>

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+<!-- saved from url=(0013)about:internet -->
+<head>
+    <meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=5,6,7,8,9,10,11, chrome=1" />
+    <title>ECharts</title>
+</head>
+
+<body>
+    <h1>绘图测试</h1>
+    <div id="main" style="width:1000px;height:500px;margin-left:-8px" />
+    <script src="echarts.min.js"></script>
+    <script src="echartsgl.min.js"></script>
+    <script>
+        myChart = echarts.init(document.getElementById('main'));
+
+
+        option = {
+            backgroundColor: '#000',
+            globe: {
+                baseTexture: ROOT_PATH + '/data-gl/asset/world.topo.bathy.200401.jpg',
+                heightTexture: ROOT_PATH + '/data-gl/asset/world.topo.bathy.200401.jpg',
+                displacementScale: 0.04,
+                shading: 'realistic',
+                environment: ROOT_PATH + '/data-gl/asset/starfield.jpg',
+                realisticMaterial: {
+                    roughness: 0.9
+                },
+                postEffect: {
+                    enable: true
+                },
+                light: {
+                    main: {
+                        intensity: 5,
+                        shadow: true
+                    },
+                    ambientCubemap: {
+                        texture: ROOT_PATH + '/data-gl/asset/pisa.hdr',
+                        diffuseIntensity: 0.2
+                    }
+                }
+            }
+        };
+
+        myChart.setOption(option);
+
+        function jsShowHide(info) {
+            if (info == 0) {
+
+            }
+            else {
+                myChart.setOption(option);
+            }
+        }
+        function jsPushData(x, y) {
+            option.xAxis.data.push(x);
+            option.series[0].data.push(y);
+            myChart.setOption(option);
+        }
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="echarts.js"></script>
+    <script src="echarts-gl.js"></script>
+    <script src="node_modules\d3\dist\d3.js"></script>
+  </head>
+
+  <body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 2000px; height: 1000px">111</div>
+
+    <script>
+    var ROOT_PATH = "cjmn";
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    
+
+    var datax=[]
+    var datay=[]
+    var dataz=[]
+    d3.csv("D.csv").then(function(data) {
+        for(var i=0;i<data.length;i++){
+            datax.push(data[i].x);
+            datay.push(data[i].y);
+            dataz.push(data[i].z);
+        }
+        var datas=[]
+        for(var i=0;i<data.length;i++){
+            var item=[datax[i],datay[i],dataz[i]]
+            datas.push(item)
+        }
+        console.log(datas)
+        // 图例
+        var option = {
+            tooltip: {},
+            backgroundColor: "#fff",
+            visualMap: {
+          show: false,
+          dimension: 2,
+          min: -30,
+          max: 0,
+          inRange: {
+            color: [
+              '#313695',
+              '#4575b4',
+              '#74add1',
+              '#abd9e9',
+              '#e0f3f8',
+              '#ffffbf',
+              '#fee090',
+              '#fdae61',
+              '#f46d43',
+              '#d73027',
+              '#a50026'
+            ]
+          }
+        },
+            // 声明一个 X 轴。默认情况下，类目轴对应到 dataset 第一列。
+            xAxis3D: {
+              type: "value",
+            },
+            yAxis3D: {
+              type: "value",
+            },
+            zAxis3D: {
+              type: "value",
+              min: 0,
+              max: -30,
+            },
+            //坐标轴属性
+            grid3D: {
+              axisPointer: {
+                show: false, //坐标轴指示器
+              },
+              viewControl: {
+                distance: 260, //地图视角 控制初始大小
+              },
+              postEffect: {//为画面添加高光，景深，环境光遮蔽（SSAO），调色等效果
+                enable: true,//是否开启
+              },
+              light: {// 光照相关的设置
+                main: {//场景主光源的设置
+                  shadow: true,//主光源是否投射阴影
+                  intensity: 2,//主光源的强度
+                },
+                ambientCubemap: {//使用一张全景贴图作为环境光源
+                  texture: ROOT_PATH + "/data-gl/asset/canyon.hdr",
+                  exposure: 2,
+                  diffuseIntensity: 0.2,
+                  specularIntensity: 1,
+                },
+              },
+            },
+            // 数据集
+            series: [
+              {
+                type: "surface",
+                silent: true,
+                wireframe: {
+                  show: false,
+                },
+                
+                data: datas,
+            }]
+        }
+           
+        
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option)
+    })
+    </script>
+  </body>
+</html>
