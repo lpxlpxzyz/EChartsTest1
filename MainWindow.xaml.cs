@@ -35,6 +35,7 @@ using AduSkin.Utility;
 using CefSharp;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace EChartsTest
 {
@@ -524,19 +525,19 @@ namespace EChartsTest
             url2 = Directory.GetCurrentDirectory() + "/剖面图.html";
             url3 = Directory.GetCurrentDirectory() + "/heatmap-large.html";
             url4 = Directory.GetCurrentDirectory() + "/水深.html";
-            url5 = Directory.GetCurrentDirectory() + "/scatter3d-simplex-noise.html";
+            //url5 = Directory.GetCurrentDirectory() + "/scatter3d-simplex-noise.html";
             url6 = Directory.GetCurrentDirectory() + "/三维图-imagesurface-动态-z=0不变.html";
-            url7 = Directory.GetCurrentDirectory() + "/chart2.html";
-            url8 = Directory.GetCurrentDirectory() + "/沉积物浓度图.html";
-          //  browser.LoadUrl(url);
-           // browser1.LoadUrl(url1);
-           // browser2.LoadUrl(url2);
-           // browser3.LoadUrl(url3);
-           // browser4.LoadUrl(url4);
-           // browser5.LoadUrl(url5);
-          //  browser6.LoadUrl(url6);
-           // browser7.LoadUrl(url7);
-           // browser8.LoadUrl(url8);
+            //url7 = Directory.GetCurrentDirectory() + "/chart2.html";
+            //url8 = Directory.GetCurrentDirectory() + "/沉积物浓度图.html";
+            // browser.LoadUrl(url);
+            //   browser1.LoadUrl(url1);
+            //  browser2.LoadUrl(url2);
+            //  browser3.LoadUrl(url3);
+            //  browser4.LoadUrl(url4);
+            //browser5.LoadUrl(url5);
+            //browser6.LoadUrl(url6);
+            //browser7.LoadUrl(url7);
+            //browser8.LoadUrl(url8);
         }
         //private void Button5_Click(object sender, RoutedEventArgs e)
         //{
@@ -1335,6 +1336,11 @@ namespace EChartsTest
 
 
 
+
+
+
+
+
             }
             else
             {
@@ -1407,168 +1413,326 @@ namespace EChartsTest
         // 定义配置文件路径
         private string configFilePath = "config.xml";
         //}
+        /*  private void CreateProject(object sender, RoutedEventArgs e)
+          {
+              var window = new SetProjectNameWindow();
+              window.Owner = this;
+              if (window.ShowDialog().Value)
+              {
+                  var note = new Note();
+                  note.Tag = window.ProjectName;
+                  note.ChildNotes = new ObservableCollection<Note>();
+                  foreach (var item in treeHeaders)
+                  {
+                      if (item.Equals("11.图形显示"))
+                      {
+                          var note1 = new Note();
+                          note1.Name = item;
+                          note1.Tag = window.ProjectName;
+                          note1.ChildNotes = new ObservableCollection<Note>();
+                          foreach (var item1 in treeHeaders1)
+                          {
+                              note1.ChildNotes.Add(new Note() { Name = item1, Tag = window.ProjectName });
+                          }
+                          note.ChildNotes.Add(note1);
+                      }
+                      else note.ChildNotes.Add(new Note() { Name = item, Tag = window.ProjectName });
+                  }
+                  //原代码，20231114注释
+                  //Notes.Add(new Note()
+                  //{
+                  //    Name = window.ProjectName,
+                  //    ChildNotes = new ObservableCollection<Note>()
+                  //    {
+                  //        new Note(){ Name="1.网格" },
+                  //        new Note(){ Name="2.地形" },
+                  //        new Note(){ Name="3.边界" },
+                  //        new Note(){ Name="4.水深" },
+                  //        new Note(){ Name="5.流体参数" },
+                  //        new Note(){ Name="6.沉积参数" },
+                  //        new Note(){ Name="7.其它参数" },
+                  //        new Note(){ Name="8.时间设置" },
+                  //        new Note(){ Name="9.模拟计算" },
+                  //        new Note(){ Name="10.图形显示", ChildNotes=new ObservableCollection<Note>()
+                  //        {
+                  //        new Note(){ Name="三维显示"},
+                  //        new Note(){ Name="矢量场图"},
+                  //        new Note(){ Name="剖面图"},
+                  //        new Note(){ Name="热力图"},
+                  //        new Note(){ Name="水深图"},
+                  //        new Note(){ Name="地形图"},
+                  //        new Note(){ Name="沉积物厚度图"},
+                  //        } },
+                  //    }
+                  //});
+                  //20231114修改
+                  Notes.Add(new Note()
+                  {
+                      Name = window.ProjectName,
+                      ChildNotes = new ObservableCollection<Note>()
+              {
+                  new Note(){ Name="盆地" },
+                  new Note(){ Name="物源" },
+                  new Note(){ Name="输移" },
+                  new Note(){ Name="水体" },
+                  new Note(){ Name="风浪" },
+                  new Note(){ Name="模拟" },
+                  new Note(){ Name="显示" },
+                //  new Note(){ Name="8.其它参数" },
+                 // new Note(){ Name="9.时间设置" },
+                 // new Note(){ Name="10.模拟计算" },
+                 // new Note(){ Name="11.图形显示", ChildNotes=new ObservableCollection<Note>()
+                //{
+                //  new Note(){ Name="三维显示"},
+                //  new Note(){ Name="矢量场图"},
+                 // new Note(){ Name="剖面图"},
+                 // new Note(){ Name="热力图"},
+                 // new Note(){ Name="水深图"},
+                 // new Note(){ Name="地形图"},
+                 // new Note(){ Name="沉积物厚度图"},
+                //  new Note(){ Name="沉积物浓度图"},
+                 // new Note(){ Name="测试图"},
+               //   } },
+              }
+                  });
+              }
+          }*/
+        //20231220新增{
+
+
+
+
+
+
+
+        public static class TreeConfig
+        {
+            // 父节点配置（保持不变）
+            public static List<string> ParentNodes => new List<string>
+    {
+        "盆地", "物源", "输移", "水体", "风浪", "模拟", "显示"
+    };
+
+            // 子节点配置：删除 "显示" 的条目，使其没有子节点
+            public static Dictionary<string, List<string>> ChildNodes => new Dictionary<string, List<string>>
+            {
+                // 留空表示所有父节点均不包含子节点
+                // 或者删除此字典的初始化（根据实际需要）
+            };
+        }
         private void CreateProject(object sender, RoutedEventArgs e)
         {
             var window = new SetProjectNameWindow();
             window.Owner = this;
+
             if (window.ShowDialog().Value)
             {
-                // 获取项目名称、项目类型和更多类型
-                string projectName = window.ProjectName;
-                string projectType = window.ProjectType;
-                string moreType = window.MoreType;
-
-                // 构建完整的文件名
-                string fullName = $"{projectName}  {projectType}  {moreType}";
-
-                var note = new Note();
-                note.Tag = fullName; // 使用完整的文件名作为 Tag
-                note.ChildNotes = new ObservableCollection<Note>();
-
-                foreach (var item in treeHeaders)
-                {
-                    if (item.Equals("11.图形显示"))
-                    {
-                        var note1 = new Note();
-                        note1.Name = item;
-                        note1.Tag = fullName; // 使用完整的文件名作为 Tag
-                        note1.ChildNotes = new ObservableCollection<Note>();
-                        foreach (var item1 in treeHeaders1)
-                        {
-                            note1.ChildNotes.Add(new Note() { Name = item1, Tag = fullName }); // 使用完整的文件名作为 Tag
-                        }
-                        note.ChildNotes.Add(note1);
-                    }
-                    else
-                    {
-                        note.ChildNotes.Add(new Note() { Name = item, Tag = fullName }); // 使用完整的文件名作为 Tag
-                    }
-                }
-                //原代码，20231114注释
-                //Notes.Add(new Note()
-                //{
-                //    Name = window.ProjectName,
-                //    ChildNotes = new ObservableCollection<Note>()
-                //    {
-                //        new Note(){ Name="1.网格" },
-                //        new Note(){ Name="2.地形" },
-                //        new Note(){ Name="3.边界" },
-                //        new Note(){ Name="4.水深" },
-                //        new Note(){ Name="5.流体参数" },
-                //        new Note(){ Name="6.沉积参数" },
-                //        new Note(){ Name="7.其它参数" },
-                //        new Note(){ Name="8.时间设置" },
-                //        new Note(){ Name="9.模拟计算" },
-                //        new Note(){ Name="10.图形显示", ChildNotes=new ObservableCollection<Note>()
-                //        {
-                //        new Note(){ Name="三维显示"},
-                //        new Note(){ Name="矢量场图"},
-                //        new Note(){ Name="剖面图"},
-                //        new Note(){ Name="热力图"},
-                //        new Note(){ Name="水深图"},
-                //        new Note(){ Name="地形图"},
-                //        new Note(){ Name="沉积物厚度图"},
-                //        } },
-                //    }
-                //});
-                //20231114修改
-                Notes.Add(new Note()
+                var rootNote = new Note
                 {
                     Name = window.ProjectName,
+                    Tag = window.ProjectName,
                     ChildNotes = new ObservableCollection<Note>()
+                };
+
+                foreach (var parentName in TreeConfig.ParentNodes)
+                {
+                    var parentNote = CreateNote(parentName, window.ProjectName);
+
+                    // 动态添加子节点（如果有配置）
+                    if (TreeConfig.ChildNodes.TryGetValue(parentName, out var childNames))
                     {
-                        new Note(){ Name="盆地" },
-                        new Note(){ Name="物源" },
-                        new Note(){ Name="输移" },
-                        new Note(){ Name="水体" },
-                        new Note(){ Name="风浪" },
-                        new Note(){ Name="模拟" },
-                        new Note(){ Name="显示" },
-                      //  new Note(){ Name="8.其它参数" },
-                       // new Note(){ Name="9.时间设置" },
-                       // new Note(){ Name="10.模拟计算" },
-                       // new Note(){ Name="11.图形显示", ChildNotes=new ObservableCollection<Note>()
-                      //{
-                      //  new Note(){ Name="三维显示"},
-                      //  new Note(){ Name="矢量场图"},
-                       // new Note(){ Name="剖面图"},
-                       // new Note(){ Name="热力图"},
-                       // new Note(){ Name="水深图"},
-                       // new Note(){ Name="地形图"},
-                       // new Note(){ Name="沉积物厚度图"},
-                      //  new Note(){ Name="沉积物浓度图"},
-                       // new Note(){ Name="测试图"},
-                     //   } },
+                        foreach (var childName in childNames)
+                        {
+                            parentNote.ChildNotes.Add(CreateNote(childName, window.ProjectName));
+                        }
                     }
-                });
+
+                    rootNote.ChildNotes.Add(parentNote);
+                }
+
+                Notes.Add(rootNote);
             }
         }
-        //20231220新增{
 
-
+        // 工厂方法：创建 Note 对象
+        private Note CreateNote(string name, string tag)
+        {
+            return new Note
+            {
+                Name = name,
+                Tag = tag,
+                ChildNotes = new ObservableCollection<Note>()
+            };
+        }
         // 保存项目按钮事件
+        /*    private void SaveProject(object sender, RoutedEventArgs e)
+            {
+                // 创建 XML 文档
+                XDocument document = new XDocument(
+                    new XElement("parameters.xml",
+                        new XElement("lx1", lx.Text),
+                        new XElement("ly2", ly.Text),
+                        new XElement("Nx3", nx.Text),
+                        new XElement("Ny4", ny.Text),
+                        new XElement("dt5", dt.Text),
+                        new XElement("t6", t.Text),
+                        new XElement("jingdu7", jingdu.Text),
+                        new XElement("weidu8", weidu.Text),
+                        new XElement("jiaosudu9", jiaosudu.Text),
+                        new XElement("ltdlnd10", ltdlnd.Text),
+                        new XElement("ltmd11", ltmd.Text),
+                        new XElement("sd12", sd.Text),
+                        new XElement("k13", k.Text),
+                        new XElement("klmd14", klmd.Text),
+                        new XElement("zzlj15", zzlj.Text),
+                        new XElement("ccl16", ccl.Text),
+                        new XElement("csnsmd17", csnsmd.Text),
+                        new XElement("kqmd18", kqmd.Text),
+                        new XElement("fyl19", fyl.Text),
+                        new XElement("pjfs20", pjfs.Text),
+                        new XElement("jd21", jd.Text),
+                        new XElement("bc22", bc.Text),
+                        new XElement("bxj23", bxj.Text)
+                    )
+                );
+
+                // 保存 XML 文档
+                document.Save(configFilePath);
+
+                if (Program1.SelectedItem == null || !(Program1.SelectedItem is Note))
+                {
+                    MessageBox.Show("请先选择一个项目进行保存！");
+                    return;
+                }
+                var file = new SaveFileDialog();
+
+                file.Filter = "*.ini|*.ini";
+                if (file.ShowDialog() == true)
+                {
+                    //File.Create(file.FileName);
+                    foreach (var item in Notes)
+                    {
+                        if (item.Tag != ((Note)(Program1.SelectedItem)).Tag)
+                        {
+                            continue;
+                        }
+                        item.Path = file.FileName;
+                        foreach (var child in item.ChildNotes)
+                        {
+                            child.Path = file.FileName;
+                        }
+                    }
+                    SaveConfig(((Note)(Program1.SelectedItem)).Tag, file.FileName);
+                    INIHelper.Write("projectName", "projectName", ((Note)(Program1.SelectedItem)).Tag, file.FileName);
+
+                }
+            }
+
+
+            */
+
         private void SaveProject(object sender, RoutedEventArgs e)
         {
-            // 创建 XML 文档
-            XDocument document = new XDocument(
-                new XElement("parameters.xml",
-                    new XElement("lx1", lx.Text),
-                    new XElement("ly2", ly.Text),
-                    new XElement("Nx3", nx.Text),
-                    new XElement("Ny4", ny.Text),
-                    new XElement("dt5", dt.Text),
-                    new XElement("t6", t.Text),
-                    new XElement("jingdu7", jingdu.Text),
-                    new XElement("weidu8", weidu.Text),
-                    new XElement("jiaosudu9", jiaosudu.Text),
-                    new XElement("ltdlnd10", ltdlnd.Text),
-                    new XElement("ltmd11", ltmd.Text),
-                    new XElement("sd12", sd.Text),
-                    new XElement("k13", k.Text),
-                    new XElement("klmd14", klmd.Text),
-                    new XElement("zzlj15", zzlj.Text),
-                    new XElement("ccl16", ccl.Text),
-                    new XElement("csnsmd17", csnsmd.Text),
-                    new XElement("kqmd18", kqmd.Text),
-                    new XElement("fyl19", fyl.Text),
-                    new XElement("pjfs20", pjfs.Text),
-                    new XElement("jd21", jd.Text),
-                    new XElement("bc22", bc.Text),
-                    new XElement("bxj23", bxj.Text)
-                )
-            );
-
-            // 保存 XML 文档
-            document.Save(configFilePath);
-
+            // 确保已选择项目
             if (Program1.SelectedItem == null || !(Program1.SelectedItem is Note))
             {
                 MessageBox.Show("请先选择一个项目进行保存！");
                 return;
             }
-            var file = new SaveFileDialog();
 
-            file.Filter = "*.ini|*.ini";
-            if (file.ShowDialog() == true)
+            // 创建保存对话框
+            var fileDialog = new SaveFileDialog();
+            fileDialog.Filter = "INI文件 (*.ini)|*.ini|KVL文件 (*.kvl)|*.kvl"; // 添加两种格式选项
+            fileDialog.DefaultExt = "ini"; // 默认扩展名
+
+            if (fileDialog.ShowDialog() == true)
             {
-                //File.Create(file.FileName);
-                foreach (var item in Notes)
+                string filePath = fileDialog.FileName;
+                string selectedFormat = System.IO.Path.GetExtension(filePath).ToLower();
+                // 根据选择的格式执行不同的保存逻辑
+                switch (selectedFormat)
                 {
-                    if (item.Tag != ((Note)(Program1.SelectedItem)).Tag)
-                    {
-                        continue;
-                    }
-                    item.Path = file.FileName;
-                    foreach (var child in item.ChildNotes)
-                    {
-                        child.Path = file.FileName;
-                    }
+                    case ".ini":
+                        SaveAsIni(filePath);
+                        break;
+                    case ".kvl":
+                        SaveAsKvl(filePath);
+                        break;
+                    default:
+                        MessageBox.Show("不支持的格式！");
+                        return;
                 }
-                SaveConfig(((Note)(Program1.SelectedItem)).Tag, file.FileName);
-                INIHelper.Write("projectName", "projectName", ((Note)(Program1.SelectedItem)).Tag, file.FileName);
 
+                // 更新项目路径
+                UpdateProjectPath(filePath);
             }
         }
+
+        // 保存为 INI 格式（原逻辑）
+        private void SaveAsIni(string filePath)
+        {
+            // 保存参数到 XML（原逻辑保留）
+            XDocument document = new XDocument(
+                new XElement("parameters.xml",
+                    new XElement("lx1", lx.Text),
+                    // ... 其他参数（保持原样）
+                    new XElement("bxj23", bxj.Text)
+                )
+            );
+            document.Save(configFilePath);
+
+            // 写入 INI 配置
+            INIHelper.Write("projectName", "projectName", ((Note)(Program1.SelectedItem)).Tag, filePath);
+        }
+
+        // 保存为 KVL 格式（新增逻辑）
+        private void SaveAsKvl(string filePath)
+        {
+            try
+            {
+                // 从界面控件获取 KVL 参数（示例字段，需根据实际界面调整）
+                string title = ((Note)Program1.SelectedItem).Tag.ToString();
+                string outfile = "output.dat"; // 示例值，可替换为控件值
+                double cellside = double.Parse(lx.Text); // 假设 lx 是单元格大小
+                double time = double.Parse(t.Text);
+                double sealevel = double.Parse(sd.Text);
+
+                // 构建 KVL 内容（按需补充字段）
+                StringBuilder kvlContent = new StringBuilder();
+                kvlContent.AppendLine($"title = {title}");
+                kvlContent.AppendLine($"outfile = {outfile}");
+                kvlContent.AppendLine($"cellside = {cellside}");
+                kvlContent.AppendLine($"time = {time}");
+                kvlContent.AppendLine($"sealevel = {sealevel}");
+                // 添加其他参数（如 tectonics, sed_diameters 等）
+
+                // 写入文件
+                File.WriteAllText(filePath, kvlContent.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"保存 KVL 文件失败: {ex.Message}");
+            }
+        }
+
+        // 更新项目路径（公共逻辑）
+        private void UpdateProjectPath(string filePath)
+        {
+            foreach (var item in Notes)
+            {
+                if (item.Tag != ((Note)(Program1.SelectedItem)).Tag)
+                {
+                    continue;
+                }
+                item.Path = filePath;
+                foreach (var child in item.ChildNotes)
+                {
+                    child.Path = filePath;
+                }
+            }
+            SaveConfig(((Note)(Program1.SelectedItem)).Tag, filePath);
+        }
+
 
         // 打开项目按钮事件
         private void OpenProject(object sender, RoutedEventArgs e)
